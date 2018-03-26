@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.spring.springboot.dao.UserDao">
+    <resultMap id="BaseResultMap" type="org.spring.springboot.domain.User">
+        <result column="id" property="id" />
+        <result column="phone_num" property="phoneNumber" />
+        <result column="password" property="password" />
+        <result column="token" property="token" />
+    </resultMap>
+
+    <parameterMap id="User" type="org.spring.springboot.domain.User"/>
+
+    <sql id="Base_Column_List">
+        id, phone_num, password,token
+    </sql>
+
+    <select id="findByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where phone_num = #{phone_num}
+    </select>
+
+    <select id="findAllUser" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from user
+    </select>
+
+    <insert id="saveUser" parameterMap="User">
+        insert into
+        user(phone_num,password,token)
+        values
+        (#{phoneNumber},#{password},#{token})
+    </insert>
+
+    <insert id="login" parameterMap="User">
+        update
+        user
+        set
+        token = #{token}
+    </insert>
+
+    <update id="updateUser" parameterMap="User">
+        update
+        user
+        set
+        <if test="phoneNumber!=null">
+            phone_num = #{phoneNumber},
+        </if>
+        <if test="password!=null">
+            password = #{password},
+        </if>
+        where
+        id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="java.lang.Long">
+        delete from
+        user
+        where
+        id = #{id}
+    </delete>
+</mapper>
