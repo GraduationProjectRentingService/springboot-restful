@@ -21,9 +21,10 @@ public class HostUserController {
     public ResponseBean HostLoginIn(@RequestBody Host host) {
         return hostService.login(host);
     }
+
     @RequestMapping(value = "/house/publish/createHouse", method = RequestMethod.POST)
     public ResponseBean createHouse(@RequestBody Host host) {
-        return hostService.createOneHouse();
+        return hostService.createOneHouse(host);
     }
 
     @RequestMapping(value = "/house/publish/saveHouseDescription", method = RequestMethod.POST)

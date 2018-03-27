@@ -10,7 +10,7 @@ public class House {
      */
     private Long id;
 
-    private Long hostId;
+    private String hostId;
 
     private String title;
 
@@ -29,10 +29,6 @@ public class House {
     private String facility;
 
     private String claim;
-
-    public void setHostId(Long hostId) {
-        this.hostId = hostId;
-    }
 
     public String getTitle() {
         return title;
@@ -114,8 +110,11 @@ public class House {
         this.id = id;
     }
 
-    public Long getHostId() {
+    public String getHostId() {
         return hostId;
     }
 
+    public void setHostId(String hostId) {
+        this.hostId = hostId;
+    }
 }

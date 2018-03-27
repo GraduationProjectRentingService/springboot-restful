@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.spring.springboot.dao.HouseDao">
+    <resultMap id="BaseResultMap" type="org.spring.springboot.domain.House">
+        <result column="id" property="id" />
+        <result column="hostId" property="hostId" />
+        <result column="title" property="title" />
+        <result column="houseInfo" property="houseInfo" />
+        <result column="trafficCondition" property="trafficCondition" />
+        <result column="surroundCondition" property="surroundCondition" />
+        <result column="bathroom" property="bathroom" />
+        <result column="electricAppliances" property="electricAppliances" />
+        <result column="facility" property="facility" />
+        <result column="claim" property="claim" />
+        <result column="description" property="description" />
+    </resultMap>
+
+    <parameterMap id="House" type="org.spring.springboot.domain.House"/>
+
+    <sql id="Base_Column_List">
+        id,hostId,title,houseInfo,trafficCondition,surroundCondition,bathroom,electricAppliances,facility,claim
+    </sql>
+
+    <select id="findByRoomId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from house
+        where id = #{id}
+    </select>
+
+    <update id="updateDescription" parameterMap="House">
+        update
+        house
+        set
+            hostId = #{hostId},
+            title = #{title},
+            description = #{description},
+            houseInfo = #{houseInfo},
+            trafficCondition = #{trafficCondition},
+            surroundCondition = #{surroundCondition}
+        where
+        id = #{id}
+    </update>
+
+</mapper>
