@@ -42,16 +42,9 @@ public interface HostService {
      */
     ResponseBean updateHost(Host host);
 
-    /**
-     * 根据 ID,删除信息
-     *
-     * @param host
-     * @return
-     */
-    ResponseBean delete(Host host);
-
     ResponseBean deleteHost(Long id);
 
-    ResponseBean createOneHouse();
+    ResponseBean createOneHouse(Host host);
+
     ResponseBean saveDescription(String str);
 }
