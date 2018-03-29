@@ -48,4 +48,12 @@ public interface UserService {
      * @return
      */
     ResponseBean deleteUser(Long id);
+
+    /**
+     * 验证用户的登录情况，Token是否合法
+     * @param phoneNum
+     * @param token
+     * @return
+     */
+    boolean isUserTokenLegal(String phoneNum, String token);
 }

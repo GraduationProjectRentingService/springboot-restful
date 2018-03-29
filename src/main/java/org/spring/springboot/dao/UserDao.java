@@ -14,9 +14,9 @@ public interface UserDao {
 
     int saveUser(User user);
 
-    ResponseBean updateUser(User user);
+    int updateUser(User user);
 
-    ResponseBean deleteUser(Long id);
+    int deleteUser(Long id);
 
-    int updateToken(String s);
+    int updateToken(@Param("phoneNum") String phoneNum, @Param("token") String token);
 }

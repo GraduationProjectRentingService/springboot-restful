@@ -12,6 +12,15 @@ public class ResponseBean {
     private String message;
     private Object content;
 
+    public ResponseBean() {
+    }
+
+    public ResponseBean(int code, String message, Object content) {
+        this.code = code;
+        this.message = message;
+        this.content = content;
+    }
+
     public int getCode() {
         return code;
     }

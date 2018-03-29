@@ -9,6 +9,7 @@ import org.spring.springboot.domain.House;
 import org.spring.springboot.domain.ResponseBean;
 import org.spring.springboot.domain.User;
 import org.spring.springboot.service.HostService;
+import org.spring.springboot.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +58,9 @@ public class HostServiceImpl implements HostService {
         if (host.getPassword().equals(hostInDao.getPassword())){
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("login success");
-            responseBean.setContent("token");
+            host.setToken(SecurityUtils.MD5(host.getPhoneNumber() + host.getPassword() + System.currentTimeMillis()));
+            hostDao.updateToken(host.getPhoneNumber(), host.getToken());
+            responseBean.setContent(host.getToken());
         } else {
             responseBean.setCode(ResponseBean.FAIL_CODE);
             responseBean.setMessage("密码错误!");
@@ -65,10 +68,16 @@ public class HostServiceImpl implements HostService {
         return responseBean;
     }
 
+    /**
+     * 注册时调动
+     * @param host
+     * @return
+     */
     @Override
     public ResponseBean saveHost(Host host) {
         ResponseBean responseBean = new ResponseBean();
         if (hostDao.findByPhone(host.getPhoneNumber()) == null){
+            host.setToken(SecurityUtils.MD5(host.getPhoneNumber() + host.getPassword() + System.currentTimeMillis()));
             hostDao.saveHost(host);
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("注册成功");
@@ -110,6 +119,17 @@ public class HostServiceImpl implements HostService {
             responseBean.setContent("");
         }
         return responseBean;
+    }
+
+    @Override
+    public Host findHostUserByPhoneNum(String phoneNum) {
+        return hostDao.findByPhone(phoneNum);
+    }
+
+    @Override
+    public boolean isHostUserTokenLegal(String phoneNum, String token) {
+        Host host = hostDao.findByPhone(phoneNum);
+        return token != null && host != null && token.equals(host.getToken());
     }
 
     @Override

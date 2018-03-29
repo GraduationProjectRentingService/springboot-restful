@@ -1,5 +1,6 @@
 package org.spring.springboot.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.spring.springboot.domain.House;
 import org.spring.springboot.domain.ResponseBean;
 import org.spring.springboot.domain.Host;
@@ -19,5 +20,7 @@ public interface HostDao {
     ResponseBean updateHost(Host host);
 
     ResponseBean deleteHost(Long id);
+
+    int updateToken(@Param("phoneNum") String phoneNum, @Param("token") String token);
 
 }

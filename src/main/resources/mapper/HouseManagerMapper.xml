@@ -21,6 +21,14 @@
         id,hostId,title,houseInfo,trafficCondition,surroundCondition,bathroom,electricAppliances,facility,claim
     </sql>
 
+    <!-- 创建房源 -->
+    <insert id="createHouse">
+        <selectKey resultType="_long" keyProperty="id" order="AFTER">
+            select @@IDENTITY as id
+        </selectKey>
+        INSERT INTO house(hostId) VALUES (#{hostUserPhone})
+    </insert>
+
     <select id="findByRoomId" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
         <include refid="Base_Column_List" />
@@ -41,5 +49,7 @@
         where
         id = #{id}
     </update>
+
+
 
 </mapper>

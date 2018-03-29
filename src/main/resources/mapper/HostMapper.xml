@@ -61,4 +61,10 @@
         where
         id = #{id}
     </delete>
+
+    <update id="updateToken">
+        UPDATE host h
+        set h.token = #{token}
+        WHERE h.phone_num = #{phoneNum}
+    </update>
 </mapper>

@@ -1,9 +1,12 @@
 package org.spring.springboot.service.impl;
 
+import org.apache.catalina.security.SecurityUtil;
 import org.spring.springboot.dao.UserDao;
 import org.spring.springboot.domain.User;
 import org.spring.springboot.domain.ResponseBean;
 import org.spring.springboot.service.UserService;
+import org.spring.springboot.utils.SecurityUtils;
+import org.spring.springboot.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.security.MessageDigest;
@@ -29,13 +32,6 @@ public class UserServiceImpl implements UserService{
     public ResponseBean login(User user) {
         ResponseBean responseBean = new ResponseBean();
 
-        if (user==null){
-            responseBean.setCode(FAIL_CODE);
-            responseBean.setMessage("参数出错!");
-            responseBean.setContent("");
-            return responseBean;
-        }
-
         User userInDao = userDao.findByPhone(user.getPhoneNumber());
         if (userInDao == null){
             responseBean.setCode(ResponseBean.FAIL_CODE);
@@ -44,8 +40,9 @@ public class UserServiceImpl implements UserService{
         }
 
         if (user.getPassword().equals(userInDao.getPassword())){
-            String s = MD5(user.getPhoneNumber()+user.getPassword()+System.currentTimeMillis());
+            String s = SecurityUtils.MD5(user.getPhoneNumber()+user.getPassword()+System.currentTimeMillis());
             user.setToken(s);
+            userDao.updateToken(user.getPhoneNumber(), user.getToken());
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("login success");
             responseBean.setContent(s);
@@ -60,7 +57,7 @@ public class UserServiceImpl implements UserService{
     public ResponseBean saveUser(User user) {
         ResponseBean responseBean = new ResponseBean();
         if (userDao.findByPhone(user.getPhoneNumber()) == null){
-            String s = MD5(user.getPhoneNumber()+user.getPassword()+System.currentTimeMillis());
+            String s = SecurityUtils.MD5(user.getPhoneNumber()+user.getPassword()+System.currentTimeMillis());
             user.setToken(s);
             userDao.saveUser(user);
             responseBean.setCode(SUCCESS_CODE);
@@ -74,6 +71,7 @@ public class UserServiceImpl implements UserService{
         return responseBean;
     }
 
+
     @Override
     public ResponseBean updateUser(User user) {
         return null;
@@ -84,29 +82,10 @@ public class UserServiceImpl implements UserService{
         return null;
     }
 
-    public final static String MD5(String s) {
-        char hexDigits[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
-        try {
-            byte[] btInput = s.getBytes();
-            // 获得MD5摘要算法的 MessageDigest 对象
-            MessageDigest mdInst = MessageDigest.getInstance("MD5");
-            // 使用指定的字节更新摘要
-            mdInst.update(btInput);
-            // 获得密文
-            byte[] md = mdInst.digest();
-            // 把密文转换成十六进制的字符串形式
-            int j = md.length;
-            char str[] = new char[j * 2];
-            int k = 0;
-            for (int i = 0; i < j; i++) {
-                byte byte0 = md[i];
-                str[k++] = hexDigits[byte0 >>> 4 & 0xf];
-                str[k++] = hexDigits[byte0 & 0xf];
-            }
-            return new String(str);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    @Override
+    public boolean isUserTokenLegal(String phoneNum, String token) {
+        User user = userDao.findByPhone(phoneNum);
+        return token != null && user != null && token.equals(user.getToken());
     }
+
 }

@@ -47,4 +47,20 @@ public interface HostService {
     ResponseBean createOneHouse(Host host);
 
     ResponseBean saveDescription(String str);
+
+    /**
+     * 通过手机号码查寻房东实例
+     * @param phoneNum
+     * @return
+     */
+    Host findHostUserByPhoneNum(String phoneNum);
+
+    /**
+     * 验证房东Token是否有效
+     * @param phoneNum
+     * @param token
+     * @return
+     */
+    boolean isHostUserTokenLegal(String phoneNum, String token);
+
 }

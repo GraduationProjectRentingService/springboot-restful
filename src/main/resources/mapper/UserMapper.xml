@@ -55,10 +55,17 @@
         id = #{id}
     </update>
 
+    <update id="updateToken">
+        UPDATE user u
+        SET u.token = #{token}
+        WHERE u.phone_num = #{phoneNum}
+    </update>
+
     <delete id="deleteUser" parameterType="java.lang.Long">
         delete from
         user
         where
         id = #{id}
     </delete>
+
 </mapper>
