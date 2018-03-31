@@ -1,15 +1,12 @@
 package org.spring.springboot.service.impl;
 
-import org.apache.catalina.security.SecurityUtil;
 import org.spring.springboot.dao.UserDao;
 import org.spring.springboot.domain.User;
 import org.spring.springboot.domain.ResponseBean;
 import org.spring.springboot.service.UserService;
 import org.spring.springboot.utils.SecurityUtils;
-import org.spring.springboot.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.security.MessageDigest;
 
 import java.util.List;
 
@@ -70,7 +67,6 @@ public class UserServiceImpl implements UserService{
         }
         return responseBean;
     }
-
 
     @Override
     public ResponseBean updateUser(User user) {

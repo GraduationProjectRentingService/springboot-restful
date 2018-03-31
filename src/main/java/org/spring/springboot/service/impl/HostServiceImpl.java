@@ -1,11 +1,7 @@
 package org.spring.springboot.service.impl;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import org.spring.springboot.dao.HostDao;
 import org.spring.springboot.dao.HouseDao;
 import org.spring.springboot.domain.Host;
-import org.spring.springboot.domain.House;
 import org.spring.springboot.domain.ResponseBean;
 import org.spring.springboot.domain.User;
 import org.spring.springboot.service.HostService;
@@ -96,29 +92,13 @@ public class HostServiceImpl implements HostService {
     }
 
     @Override
-    public ResponseBean saveDescription(String str) {
-        ResponseBean responseBean = new ResponseBean();
-        JSONObject json = JSON.parseObject(str);
-            //House house = houseDao.findByRoomId(json.getLong("roomId"));
-        if( houseDao.findByRoomId(json.getLong("roomId")) != null ) {
-            House house = houseDao.findByRoomId(json.getLong("roomId"));
-            house.setHostId(json.getString("userPhone"));
-            house.setTitle(json.getString("title"));
-            house.setDescription(json.getString("description"));
-            house.setHouseInfo(json.getString("houseInfo"));
-            house.setTrafficCondition(json.getString("trafficCondition"));
-            house.setSurroundCondition(json.getString("surroundCondition"));
-            houseDao.updateDescription(house);
-            responseBean.setCode(SUCCESS_CODE);
-            responseBean.setMessage("添加成功");
-            responseBean.setContent("");
-        }
-        else{
-            responseBean.setCode(FAIL_CODE);
-            responseBean.setMessage("添加失败");
-            responseBean.setContent("");
-        }
-        return responseBean;
+    public ResponseBean deleteHost(Long id) {
+        return null;
+    }
+
+    @Override
+    public ResponseBean createOneHouse(Host host) {
+        return null;
     }
 
     @Override
@@ -132,29 +112,29 @@ public class HostServiceImpl implements HostService {
         return token != null && host != null && token.equals(host.getToken());
     }
 
-    @Override
-    public ResponseBean createOneHouse(Host host){
-        ResponseBean responseBean = new ResponseBean();
-        if(host.getToken()!=null)
-        {
-            House house = new House();
-            house.setHostId(host.getPhoneNumber());
-            responseBean.setCode(SUCCESS_CODE);
-            responseBean.setMessage("添加成功");
-            responseBean.setContent(host.getPhoneNumber());
-        }
-        else {
-            responseBean.setCode(FAIL_CODE);
-            responseBean.setMessage("添加失败");
-            responseBean.setContent("");
-        }
-        return responseBean;
-    }
-
-    @Override
-    public ResponseBean deleteHost(Long id) {
-        return null;
-    }
+//    @Override
+//    public ResponseBean createOneHouse(Host host){
+//        ResponseBean responseBean = new ResponseBean();
+//        if(host.getToken()!=null)
+//        {
+//            House house = new House();
+//            house.setHostId(host.getPhoneNumber());
+//            responseBean.setCode(SUCCESS_CODE);
+//            responseBean.setMessage("添加成功");
+//            responseBean.setContent(host.getPhoneNumber());
+//        }
+//        else {
+//            responseBean.setCode(FAIL_CODE);
+//            responseBean.setMessage("添加失败");
+//            responseBean.setContent("");
+//        }
+//        return responseBean;
+//    }
+//
+//    @Override
+//    public ResponseBean deleteHost(Long id) {
+//        return null;
+//    }
 
 //    JSONArray arrays = json.getJSONArray("");
 //    System.out.println(arrays.getString(0));

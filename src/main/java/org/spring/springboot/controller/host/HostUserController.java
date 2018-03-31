@@ -2,7 +2,6 @@ package org.spring.springboot.controller.host;
 
 import org.spring.springboot.domain.Host;
 import org.spring.springboot.domain.ResponseBean;
-import org.spring.springboot.exception.MyException;
 import org.spring.springboot.exception.MyExceptionAssert;
 import org.spring.springboot.exception.MyExceptionCode;
 import org.spring.springboot.service.HostService;
@@ -33,14 +32,10 @@ public class HostUserController {
 //
 //    @RequestMapping(value = "/house/publish/createHouse", method = RequestMethod.POST)
 //    public ResponseBean createHouse(@RequestBody Host host) {
-//        MyExceptionAssert.isNotBlank(host.getPhoneNumber(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房东账号不能为空！");
+//        MyExceptionAssert.isNotBlank(host.getUserPhone(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房东账号不能为空！");
 //        MyExceptionAssert.isNotBlank(host.getToken(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "token不能为空！");
 //        return hostService.createOneHouse(host);
 //    }
 //
-//    @RequestMapping(value = "/house/publish/saveHouseDescription", method = RequestMethod.POST)
-//    public ResponseBean saveHouseDescription(@RequestBody String params) {
-//        System.out.print(params);
-//        return hostService.saveDescription(params);
-//    }
+
 }

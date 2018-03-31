@@ -8,26 +8,54 @@
         <result column="houseInfo" property="houseInfo" />
         <result column="trafficCondition" property="trafficCondition" />
         <result column="surroundCondition" property="surroundCondition" />
+        <result column="facility" property="facility" />
         <result column="bathroom" property="bathroom" />
         <result column="electricAppliances" property="electricAppliances" />
-        <result column="facility" property="facility" />
         <result column="claim" property="claim" />
         <result column="description" property="description" />
+        <result column="dailyPrice" property="dailyPrice" />
+        <result column="deposit" property="deposit" />
+        <result column="addGuest" property="addGuest" />
+        <result column="otherPrice" property="otherPrice" />
+        <result column="tradingRules" property="tradingRules" />
+        <result column="breakContact" property="breakContact" />
+        <result column="leastDay" property="leastDay" />
+        <result column="mostDay" property="mostDay" />
+        <result column="receiveOutside" property="receiveOutside" />
+        <result column="otherRequirement" property="otherRequirement" />
+        <result column="tip" property="tip" />
+        <result column="address" property="address" />
+        <result column="rentalType" property="rentalType" />
+        <result column="rentalTypeText" property="rentalTypeText" />
+        <result column="peopleNum" property="peopleNum" />
+        <result column="roomNum" property="roomNum" />
+        <result column="hallNum" property="hallNum" />
+        <result column="bathroomNum" property="bathroomNum" />
+        <result column="kitchenNum" property="kitchenNum" />
+        <result column="balconyNum" property="balconyNum" />
+        <result column="roomArea" property="roomArea" />
+        <result column="sofaNum" property="sofaNum" />
+        <result column="liveWithOwner" property="liveWithOwner" />
+        <result column="bed" property="bed" />
+        <result column="replaceBedSheet" property="replaceBedSheet" />
     </resultMap>
 
     <parameterMap id="House" type="org.spring.springboot.domain.House"/>
 
     <sql id="Base_Column_List">
-        id,hostId,title,houseInfo,trafficCondition,surroundCondition,bathroom,electricAppliances,facility,claim
+        id,hostId,title,houseInfo,trafficCondition,surroundCondition,facility,bathroom,electricAppliances,facility,claim,description,
+        dailyPrice,deposit,addGuest,otherPrice,tradingRules,breakContact,leastDay,mostDay,receiveOutside,otherRequirement,tip,
+        address,rentalType,rentalTypeText,peopleNum,roomNum,hallNum,bathroomNum,kitchenNum,balconyNum,roomArea,sofaNum,liveWithOwner,bed,replaceBedSheet
     </sql>
 
     <!-- 创建房源 -->
-    <insert id="createHouse">
-        <selectKey resultType="_long" keyProperty="id" order="AFTER">
-            select @@IDENTITY as id
-        </selectKey>
-        INSERT INTO house(hostId) VALUES (#{hostUserPhone})
+    <insert id="createAnHouse" parameterMap="House">
+        INSERT INTO house(id,hostId) VALUES (#{id},#{hostId})
     </insert>
+
+    <select id="FindMaxRoomId" resultType="java.lang.Long">
+    select max(id) from house
+    </select>
 
     <select id="findByRoomId" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
@@ -50,6 +78,92 @@
         id = #{id}
     </update>
 
+    <update id="updateFacilities" parameterMap="House">
+        update
+        house
+        set
+        bathroom = #{bathroom},
+        electricAppliances = #{electricAppliances},
+        claim = #{claim},
+        surroundCondition = #{surroundCondition}
+        where
+        id = #{id}
+    </update>
 
+    <update id="updatePriceRule" parameterMap="House">
+        update
+        house
+        set
+        dailyPrice = #{dailyPrice},
+        deposit = #{deposit},
+        addGuest = #{addGuest},
+        otherPrice = #{otherPrice}
+        where
+        id = #{id}
+    </update>
+
+    <update id="updateRuleRequirement" parameterMap="House">
+        update
+        house
+        set
+        tradingRules = #{tradingRules},
+        breakContact = #{breakContact},
+        leastDay = #{leastDay},
+        mostDay = #{mostDay},
+        receiveOutside = #{receiveOutside},
+        otherRequirement = #{otherRequirement},
+        tip = #{tip}
+        where
+        id = #{id}
+    </update>
+
+    <update id="updateBaseInfo" parameterMap="House">
+        update
+        house
+        set
+        address = #{address},
+        rentalType = #{rentalType},
+        rentalTypeText = #{rentalTypeText},
+        peopleNum = #{peopleNum},
+        roomNum = #{roomNum},
+        hallNum = #{hallNum},
+        bathroomNum = #{bathroomNum},
+        kitchenNum = #{kitchenNum},
+        balconyNum = #{balconyNum},
+        roomArea = #{roomArea},
+        sofaNum = #{sofaNum},
+        liveWithOwner = #{liveWithOwner},
+        bed = #{bed},
+        replaceBedSheet = #{replaceBedSheet}
+        where
+        id = #{id}
+    </update>
+
+    <select id="getHouseList" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from house
+    </select>
+
+    <select id="findHouseByHostId" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from house
+        where hostId = #{hostPhoneNumber}
+    </select>
+
+    <select id="findHouseByAddress" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from house
+        where address = #{address}
+    </select>
+
+    <select id="findHouseByTitle" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from house
+        where title = #{title}
+    </select>
 
 </mapper>

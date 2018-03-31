@@ -30,6 +30,256 @@ public class House {
 
     private String claim;
 
+    private long dailyPrice;
+
+    private long deposit;
+
+    private long addGuest;
+
+    private String tradingRules;
+
+    private String breakContact;
+
+    private long leastDay;
+
+    private long mostDay;
+
+    private long receiveOutside;
+
+    private String otherRequirement;
+
+    private String tip;
+
+    private String address;
+
+    private long rentalType;
+
+    private String rentalTypeText;
+
+    private long peopleNum;
+
+    private long roomNum;
+
+    private long hallNum;
+
+    private long bathroomNum;
+
+    private long kitchenNum;
+
+    private long balconyNum;
+
+    private long roomArea;
+
+    private long sofaNum;
+
+    private long liveWithOwner;
+
+    public long getBalconyNum() {
+        return balconyNum;
+    }
+
+    public void setBalconyNum(long balconyNum) {
+        this.balconyNum = balconyNum;
+    }
+
+    public long getRoomArea() {
+        return roomArea;
+    }
+
+    public void setRoomArea(long roomArea) {
+        this.roomArea = roomArea;
+    }
+
+    public long getSofaNum() {
+        return sofaNum;
+    }
+
+    public void setSofaNum(long sofaNum) {
+        this.sofaNum = sofaNum;
+    }
+
+    public long getLiveWithOwner() {
+        return liveWithOwner;
+    }
+
+    public void setLiveWithOwner(long liveWithOwner) {
+        this.liveWithOwner = liveWithOwner;
+    }
+
+    public String getBed() {
+        return bed;
+    }
+
+    public void setBed(String bed) {
+        this.bed = bed;
+    }
+
+    public String getReplaceBedSheet() {
+        return replaceBedSheet;
+    }
+
+    public void setReplaceBedSheet(String replaceBedSheet) {
+        this.replaceBedSheet = replaceBedSheet;
+    }
+
+    private String bed;
+
+    private String replaceBedSheet;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public long getRentalType() {
+        return rentalType;
+    }
+
+    public void setRentalType(long rentalType) {
+        this.rentalType = rentalType;
+    }
+
+    public String getRentalTypeText() {
+        return rentalTypeText;
+    }
+
+    public void setRentalTypeText(String rentalTypeText) {
+        this.rentalTypeText = rentalTypeText;
+    }
+
+    public long getPeopleNum() {
+        return peopleNum;
+    }
+
+    public void setPeopleNum(long peopleNum) {
+        this.peopleNum = peopleNum;
+    }
+
+    public long getRoomNum() {
+        return roomNum;
+    }
+
+    public void setRoomNum(long roomNum) {
+        this.roomNum = roomNum;
+    }
+
+    public long getHallNum() {
+        return hallNum;
+    }
+
+    public void setHallNum(long hallNum) {
+        this.hallNum = hallNum;
+    }
+
+    public long getBathroomNum() {
+        return bathroomNum;
+    }
+
+    public void setBathroomNum(long bathroomNum) {
+        this.bathroomNum = bathroomNum;
+    }
+
+    public long getKitchenNum() {
+        return kitchenNum;
+    }
+
+    public void setKitchenNum(long kitchenNum) {
+        this.kitchenNum = kitchenNum;
+    }
+
+    public String getTradingRules() {
+        return tradingRules;
+    }
+
+    public void setTradingRules(String tradingRules) {
+        this.tradingRules = tradingRules;
+    }
+
+    public String getBreakContact() {
+        return breakContact;
+    }
+
+    public void setBreakContact(String breakContact) {
+        this.breakContact = breakContact;
+    }
+
+    public long getLeastDay() {
+        return leastDay;
+    }
+
+    public void setLeastDay(long leastDay) {
+        this.leastDay = leastDay;
+    }
+
+    public long getMostDay() {
+        return mostDay;
+    }
+
+    public void setMostDay(long mostDay) {
+        this.mostDay = mostDay;
+    }
+
+    public long getReceiveOutside() {
+        return receiveOutside;
+    }
+
+    public void setReceiveOutside(long receiveOutside) {
+        this.receiveOutside = receiveOutside;
+    }
+
+    public String getOtherRequirement() {
+        return otherRequirement;
+    }
+
+    public void setOtherRequirement(String otherRequirement) {
+        this.otherRequirement = otherRequirement;
+    }
+
+    public String getTip() {
+        return tip;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
+    }
+
+    public long getDailyPrice() {
+        return dailyPrice;
+    }
+
+    public void setDailyPrice(long dailyPrice) {
+        this.dailyPrice = dailyPrice;
+    }
+
+    public long getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(long deposit) {
+        this.deposit = deposit;
+    }
+
+    public long getAddGuest() {
+        return addGuest;
+    }
+
+    public void setAddGuest(long addGuest) {
+        this.addGuest = addGuest;
+    }
+
+    public String getOtherPrice() {
+        return otherPrice;
+    }
+
+    public void setOtherPrice(String otherPrice) {
+        this.otherPrice = otherPrice;
+    }
+
+    private String otherPrice;
+
     public String getTitle() {
         return title;
     }

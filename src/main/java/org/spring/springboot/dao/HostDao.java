@@ -11,7 +11,7 @@ public interface HostDao {
 
     List<Host> findAllUesr();
 
-    Host findByPhone(String phone_num);
+    Host findByPhone(@Param("phone_num") String phone_num);
 
     House findByRoomId(Long id);
 
