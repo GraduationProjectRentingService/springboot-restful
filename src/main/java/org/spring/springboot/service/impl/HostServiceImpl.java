@@ -77,7 +77,7 @@ public class HostServiceImpl implements HostService {
             hostDao.saveHost(host);
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("注册成功");
-            responseBean.setContent("");
+            responseBean.setContent(host.getToken());
         }else {
             responseBean.setCode(FAIL_CODE);
             responseBean.setMessage("账户已存在，不需要重新注册");
