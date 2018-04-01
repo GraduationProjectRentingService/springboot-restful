@@ -15,6 +15,7 @@ public class HostUserController {
     @Autowired
     private HostService hostService;
 
+    @CrossOrigin
     @RequestMapping(value = "/house/user/register", method = RequestMethod.POST)
     public ResponseBean registerOneUser(@RequestBody Host host) {
         MyExceptionAssert.isNotBlank(host.getPhoneNumber(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "手机号码不能为空！");
@@ -23,6 +24,7 @@ public class HostUserController {
         return hostService.saveHost(host);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/house/user/login", method = RequestMethod.POST)
     public ResponseBean hostLogin(@RequestBody Host host) {
         MyExceptionAssert.isNotBlank(host.getPhoneNumber(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "手机号码不能为空！");
