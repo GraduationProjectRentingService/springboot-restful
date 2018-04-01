@@ -1,5 +1,6 @@
 package org.spring.springboot.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import org.spring.springboot.dao.UserDao;
 import org.spring.springboot.domain.User;
 import org.spring.springboot.domain.ResponseBean;
@@ -37,12 +38,13 @@ public class UserServiceImpl implements UserService{
         }
 
         if (user.getPassword().equals(userInDao.getPassword())){
-            String s = SecurityUtils.MD5(user.getPhoneNumber()+user.getPassword()+System.currentTimeMillis());
-            user.setToken(s);
+            String token = SecurityUtils.MD5(user.getPhoneNumber()+user.getPassword()+System.currentTimeMillis());
+            user.setToken(token);
             userDao.updateToken(user.getPhoneNumber(), user.getToken());
             responseBean.setCode(SUCCESS_CODE);
-            responseBean.setMessage("login success");
-            responseBean.setContent(s);
+            JSONObject content = new JSONObject();
+            content.put("token", token);
+            responseBean.setContent(content);
         } else {
             responseBean.setCode(ResponseBean.FAIL_CODE);
             responseBean.setMessage("密码错误!");
@@ -54,12 +56,14 @@ public class UserServiceImpl implements UserService{
     public ResponseBean saveUser(User user) {
         ResponseBean responseBean = new ResponseBean();
         if (userDao.findByPhone(user.getPhoneNumber()) == null){
-            String s = SecurityUtils.MD5(user.getPhoneNumber()+user.getPassword()+System.currentTimeMillis());
-            user.setToken(s);
+            String token = SecurityUtils.MD5(user.getPhoneNumber()+user.getPassword()+System.currentTimeMillis());
+            user.setToken(token);
             userDao.saveUser(user);
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("注册成功");
-            responseBean.setContent(s);
+            JSONObject content = new JSONObject();
+            content.put("token", token);
+            responseBean.setContent(content);
         }else {
             responseBean.setCode(FAIL_CODE);
             responseBean.setMessage("账户已存在，不需要重新注册");
