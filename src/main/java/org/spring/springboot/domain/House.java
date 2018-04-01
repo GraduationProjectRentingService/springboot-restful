@@ -5,9 +5,6 @@ package org.spring.springboot.domain;
  */
 public class House {
 
-    /**
-     * 房间编号
-     */
     private Long id;
 
     private String hostId;
@@ -70,9 +67,57 @@ public class House {
 
     private long roomArea;
 
-    private long sofaNum;
-
     private long liveWithOwner;
+
+    private long haveReviewed;
+
+    private long type;
+
+    private String picOne;
+
+    private String picAll;
+
+    private String bathroomType;
+
+    public String getBathroomType() {
+        return bathroomType;
+    }
+
+    public void setBathroomType(String bathroomType) {
+        this.bathroomType = bathroomType;
+    }
+
+    public String getPicOne() {
+        return picOne;
+    }
+
+    public void setPicOne(String picOne) {
+        this.picOne = picOne;
+    }
+
+    public String getPicAll() {
+        return picAll;
+    }
+
+    public void setPicAll(String picAll) {
+        this.picAll = picAll;
+    }
+
+    public long getType() {
+        return type;
+    }
+
+    public void setType(long type) {
+        this.type = type;
+    }
+
+    public long getHaveReviewed() {
+        return haveReviewed;
+    }
+
+    public void setHaveReviewed(long haveReviewed) {
+        this.haveReviewed = haveReviewed;
+    }
 
     public long getBalconyNum() {
         return balconyNum;
@@ -88,14 +133,6 @@ public class House {
 
     public void setRoomArea(long roomArea) {
         this.roomArea = roomArea;
-    }
-
-    public long getSofaNum() {
-        return sofaNum;
-    }
-
-    public void setSofaNum(long sofaNum) {
-        this.sofaNum = sofaNum;
     }
 
     public long getLiveWithOwner() {

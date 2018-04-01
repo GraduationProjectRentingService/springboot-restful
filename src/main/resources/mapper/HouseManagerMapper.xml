@@ -34,10 +34,13 @@
         <result column="kitchenNum" property="kitchenNum" />
         <result column="balconyNum" property="balconyNum" />
         <result column="roomArea" property="roomArea" />
-        <result column="sofaNum" property="sofaNum" />
         <result column="liveWithOwner" property="liveWithOwner" />
         <result column="bed" property="bed" />
         <result column="replaceBedSheet" property="replaceBedSheet" />
+        <result column="haveReviewed" property="haveReviewed" />
+        <result column="type" property="type" />
+        <result column="picOne" property="picOne" />
+        <result column="picAll" property="picAll" />
     </resultMap>
 
     <parameterMap id="House" type="org.spring.springboot.domain.House"/>
@@ -45,7 +48,8 @@
     <sql id="Base_Column_List">
         id,hostId,title,houseInfo,trafficCondition,surroundCondition,facility,bathroom,electricAppliances,facility,claim,description,
         dailyPrice,deposit,addGuest,otherPrice,tradingRules,breakContact,leastDay,mostDay,receiveOutside,otherRequirement,tip,
-        address,rentalType,rentalTypeText,peopleNum,roomNum,hallNum,bathroomNum,kitchenNum,balconyNum,roomArea,sofaNum,liveWithOwner,bed,replaceBedSheet
+        address,rentalType,rentalTypeText,peopleNum,roomNum,hallNum,bathroomNum,kitchenNum,balconyNum,roomArea,liveWithOwner,bed,replaceBedSheet,
+        haveReviewed,type,picOne,picAll
     </sql>
 
     <!-- 创建房源 -->
@@ -60,6 +64,19 @@
     <select id="findByRoomId" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
         <include refid="Base_Column_List" />
+        from house
+        where id = #{id}
+    </select>
+
+
+    <select id="getHouseTitle" parameterType="java.lang.Long" resultType="java.lang.String">
+        select title
+        from house
+        where id = #{id}
+    </select>
+
+    <select id="getHostId" parameterType="java.lang.Long" resultType="java.lang.String">
+        select hostId
         from house
         where id = #{id}
     </select>
@@ -131,7 +148,6 @@
         kitchenNum = #{kitchenNum},
         balconyNum = #{balconyNum},
         roomArea = #{roomArea},
-        sofaNum = #{sofaNum},
         liveWithOwner = #{liveWithOwner},
         bed = #{bed},
         replaceBedSheet = #{replaceBedSheet}
@@ -139,10 +155,11 @@
         id = #{id}
     </update>
 
-    <select id="getHouseList" resultMap="BaseResultMap" >
+    <select id="getHouseList" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
         <include refid="Base_Column_List" />
         from house
+        where haveReviewed = #{haveReviewed}
     </select>
 
     <select id="findHouseByHostId" resultMap="BaseResultMap" >
@@ -164,6 +181,29 @@
         <include refid="Base_Column_List" />
         from house
         where title = #{title}
+    </select>
+
+    <update id="updateReviewed" parameterMap="House">
+        update
+        house
+        set
+        haveReviewed = #{haveReviewed}
+        where
+        id = #{id}
+    </update>
+
+    <select id="findHaveReviewedHouse" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from house
+        where haveReviewed = 1
+    </select>
+
+    <select id="findTypeHouse" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from house
+        where haveReviewed = 1 and type = #{type}
     </select>
 
 </mapper>

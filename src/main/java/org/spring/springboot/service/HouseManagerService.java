@@ -1,7 +1,7 @@
 package org.spring.springboot.service;
 
+import org.spring.springboot.domain.House;
 import org.spring.springboot.domain.ResponseBean;
-import org.spring.springboot.domain.User;
 
 public interface HouseManagerService {
 
@@ -17,7 +17,7 @@ public interface HouseManagerService {
 
     ResponseBean saveBaseInfo(String str);
 
-    ResponseBean getAllHouse(User user);
+    ResponseBean getAllHouse(String str);
 
     ResponseBean getHouseByHostId(String str);
 
@@ -25,5 +25,12 @@ public interface HouseManagerService {
 
     ResponseBean getHouseByTitle(String params);
 
-    ResponseBean getHouseByHouseId(Long id);
+    ResponseBean getHouseByHouseId(String str);
+
+    ResponseBean updateHouseReviewed(House house);
+
+    ResponseBean houseHaveReviewed(String str);
+
+    ResponseBean getTitle(String params);
+
 }

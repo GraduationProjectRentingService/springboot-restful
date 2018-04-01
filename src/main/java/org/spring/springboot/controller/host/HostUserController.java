@@ -31,13 +31,11 @@ public class HostUserController {
         MyExceptionAssert.isNotBlank(host.getPassword(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "密码不能为空！");
         return hostService.login(host);
     }
-//
-//    @RequestMapping(value = "/house/publish/createHouse", method = RequestMethod.POST)
-//    public ResponseBean createHouse(@RequestBody Host host) {
-//        MyExceptionAssert.isNotBlank(host.getUserPhone(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房东账号不能为空！");
-//        MyExceptionAssert.isNotBlank(host.getToken(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "token不能为空！");
-//        return hostService.createOneHouse(host);
-//    }
-//
+
+    @CrossOrigin
+    @RequestMapping(value = "/management/userManagement/getAllHostUser", method = RequestMethod.POST)
+    public ResponseBean getAllHostUser(@RequestBody String params) {
+        return hostService.getAllHost(params);
+    }
 
 }

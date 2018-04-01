@@ -9,7 +9,7 @@ public class Order {
 
     private Long id;
 
-    private String houseId;
+    private Long houseId;
 
     private String houseTitle;
 
@@ -39,11 +39,11 @@ public class Order {
         this.id = id;
     }
 
-    public String getHouseId() {
+    public Long getHouseId() {
         return houseId;
     }
 
-    public void setHouseId(String houseId) {
+    public void setHouseId(Long houseId) {
         this.houseId = houseId;
     }
 

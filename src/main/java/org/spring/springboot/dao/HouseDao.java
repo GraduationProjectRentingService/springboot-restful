@@ -1,9 +1,6 @@
 package org.spring.springboot.dao;
 
-import org.apache.ibatis.annotations.Param;
 import org.spring.springboot.domain.House;
-import org.spring.springboot.domain.ResponseBean;
-import org.spring.springboot.domain.User;
 
 import java.util.List;
 
@@ -25,11 +22,21 @@ public interface HouseDao {
 
     long FindMaxRoomId();
 
-    List<House> getHouseList();
+    List<House> getHouseList(Long haveReviewed);
 
     List<House> findHouseByHostId(String str);
 
     List<House> findHouseByAddress(String str);
 
     List<House> findHouseByTitle(String str);
+
+    List<House> findHaveReviewedHouse(Long type);
+
+    int updateReviewed(House house);
+
+    List<House> findTypeHouse(Long type);
+
+    String getHouseTitle(Long houseId);
+
+    String getHostId(Long houseId);
 }

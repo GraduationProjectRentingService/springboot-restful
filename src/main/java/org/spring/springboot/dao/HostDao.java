@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface HostDao {
 
-    List<Host> findAllUesr();
-
     Host findByPhone(@Param("phone_num") String phone_num);
 
     House findByRoomId(Long id);
@@ -23,4 +21,5 @@ public interface HostDao {
 
     int updateToken(@Param("phoneNum") String phoneNum, @Param("token") String token);
 
+    List<Host> findAllUser();
 }

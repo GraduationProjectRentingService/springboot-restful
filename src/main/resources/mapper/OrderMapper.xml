@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.spring.springboot.dao.OrderDao">
+    <resultMap id="BaseResultMap" type="org.spring.springboot.domain.Order">
+        <result column="id" property="id" />
+        <result column="houseId" property="houseId" />
+        <result column="houseTitle" property="houseTitle" />
+        <result column="userId" property="userId" />
+        <result column="hostId" property="hostId" />
+        <result column="startTime" property="startTime" />
+        <result column="endTime" property="endTime" />
+        <result column="dateNum" property="dateNum" />
+        <result column="orderPrice" property="orderPrice" />
+        <result column="orderState" property="orderState" />
+        <result column="payWay" property="payWay" />
+        <result column="createTime" property="createTime" />
+    </resultMap>
+
+    <parameterMap id="Order" type="org.spring.springboot.domain.Order"/>
+
+    <sql id="Base_Column_List">
+        id,houseId,houseTitle,userId,hostId,startTime,endTime,dateNum,orderPrice,orderState,payWay,createTime
+    </sql>
+
+    <!-- 创建订单 -->
+    <insert id="createAnOrder" parameterMap="Order">
+        INSERT INTO orderTable(id,houseId,houseTitle,userId,hostId,startTime,endTime,dateNum) VALUES (#{id},#{houseId},#{houseTitle},#{userId},#{hostId},#{startTime},#{endTime},#{dateNum})
+    </insert>
+
+    <select id="FindMaxOrderId" resultType="java.lang.Long">
+    select max(id) from orderTable
+    </select>
+
+</mapper>

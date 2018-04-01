@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface OrderDao {
 
+    long FindMaxOrderId();
+
+    int createAnOrder(Order order);
+
 }

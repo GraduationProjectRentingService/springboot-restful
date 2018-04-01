@@ -61,4 +61,5 @@ public interface HostService {
      */
     boolean isHostUserTokenLegal(String phoneNum, String token);
 
+    ResponseBean getAllHost(String params);
 }
