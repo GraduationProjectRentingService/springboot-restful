@@ -74,6 +74,7 @@ public class HouseManagerServiceImpl implements HouseManagerService {
         if (houseDao.findByRoomId(json.getLong("roomId")) != null) {
             House house = houseDao.findByRoomId(json.getLong("roomId"));
             house.setHostId(json.getString("userPhone"));
+            // TODO: 2018/4/2 需要修改
             house.setBathroom(array_bathroom.getString(0) + "," + array_bathroom.getString(1));
             house.setDescription(array_electricAppliances.getString(0) + "," + array_electricAppliances.getString(1));
             house.setFacility(array_facility.getString(0) + "," + array_facility.getString(1));
@@ -123,6 +124,7 @@ public class HouseManagerServiceImpl implements HouseManagerService {
         if (houseDao.findByRoomId(json.getLong("roomId")) != null) {
             House house = houseDao.findByRoomId(json.getLong("roomId"));
             house.setTradingRules(json.getString("tradingRules"));
+            // TODO: 2018/4/2 需要修改
             house.setBreakContact(array_breakContact.getString(0) + "," + array_breakContact.getString(1));
             house.setLeastDay(json.getLong("leastDay"));
             house.setMostDay(json.getLong("mostDay"));
@@ -159,7 +161,7 @@ public class HouseManagerServiceImpl implements HouseManagerService {
             house.setRoomArea(json.getLong("roomArea"));
             house.setLiveWithOwner(json.getLong("liveWithOwner"));
             house.setReplaceBedSheet(json.getString("replaceBedSheet"));
-            house.setBathroom(json.getString("bathroom"));
+            house.setBathroom(json.getString("bathroomType"));
             house.setBed(json.getString("bed"));
             house.setTip("tip");
             houseDao.updateBaseInfo(house);
