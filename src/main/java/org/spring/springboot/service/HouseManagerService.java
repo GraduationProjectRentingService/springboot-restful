@@ -33,4 +33,5 @@ public interface HouseManagerService {
 
     ResponseBean getTitle(String params);
 
+    ResponseBean isReviewed(String params);
 }

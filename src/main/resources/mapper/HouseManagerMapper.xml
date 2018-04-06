@@ -41,6 +41,7 @@
         <result column="type" property="type" />
         <result column="picOne" property="picOne" />
         <result column="picAll" property="picAll" />
+        <result column="bathroomType" property="bathroomType" />
     </resultMap>
 
     <parameterMap id="House" type="org.spring.springboot.domain.House"/>
@@ -49,7 +50,7 @@
         id,hostId,title,houseInfo,trafficCondition,surroundCondition,facility,bathroom,electricAppliances,facility,claim,description,
         dailyPrice,deposit,addGuest,otherPrice,tradingRules,breakContact,leastDay,mostDay,receiveOutside,otherRequirement,tip,
         address,rentalType,rentalTypeText,peopleNum,roomNum,hallNum,bathroomNum,kitchenNum,balconyNum,roomArea,liveWithOwner,bed,replaceBedSheet,
-        haveReviewed,type,picOne,picAll
+        haveReviewed,type,picOne,picAll,bathroomType
     </sql>
 
     <!-- 创建房源 -->
@@ -150,7 +151,8 @@
         roomArea = #{roomArea},
         liveWithOwner = #{liveWithOwner},
         bed = #{bed},
-        replaceBedSheet = #{replaceBedSheet}
+        replaceBedSheet = #{replaceBedSheet},
+        bathroomType = #{bathroomType}
         where
         id = #{id}
     </update>
@@ -204,6 +206,13 @@
         <include refid="Base_Column_List" />
         from house
         where haveReviewed = 1 and type = #{type}
+    </select>
+
+    <select id="isReviewed" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from house
+        where haveReviewed = #{haveReviewed}
     </select>
 
 </mapper>

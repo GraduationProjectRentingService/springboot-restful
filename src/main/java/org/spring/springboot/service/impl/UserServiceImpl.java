@@ -1,5 +1,6 @@
 package org.spring.springboot.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.spring.springboot.dao.UserDao;
 import org.spring.springboot.domain.User;
@@ -86,6 +87,22 @@ public class UserServiceImpl implements UserService{
     public boolean isUserTokenLegal(String phoneNum, String token) {
         User user = userDao.findByPhone(phoneNum);
         return token != null && user != null && token.equals(user.getToken());
+    }
+
+    @Override
+    public ResponseBean getAllUserList(String str){
+        ResponseBean responseBean = new ResponseBean();
+        JSONObject json = JSON.parseObject(str);
+        if ( json.getString("managementId").equals("Admin") && json.getString("password").equals("123456") ) {
+            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setMessage("查询成功");
+            responseBean.setContent(userDao.findAllUser());
+        } else {
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("获取失败");
+            responseBean.setContent("");
+        }
+        return responseBean;
     }
 
 }

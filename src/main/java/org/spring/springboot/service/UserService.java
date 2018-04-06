@@ -56,4 +56,6 @@ public interface UserService {
      * @return
      */
     boolean isUserTokenLegal(String phoneNum, String token);
+
+    ResponseBean getAllUserList(String params);
 }

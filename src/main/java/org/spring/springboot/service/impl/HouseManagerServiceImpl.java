@@ -74,11 +74,10 @@ public class HouseManagerServiceImpl implements HouseManagerService {
         if (houseDao.findByRoomId(json.getLong("roomId")) != null) {
             House house = houseDao.findByRoomId(json.getLong("roomId"));
             house.setHostId(json.getString("userPhone"));
-            // TODO: 2018/4/2 需要修改
-            house.setBathroom(array_bathroom.getString(0) + "," + array_bathroom.getString(1));
-            house.setDescription(array_electricAppliances.getString(0) + "," + array_electricAppliances.getString(1));
-            house.setFacility(array_facility.getString(0) + "," + array_facility.getString(1));
-            house.setClaim(array_claim.getString(0) + "," + array_claim.getString(1));
+            house.setBathroom(array_bathroom.toString());
+            house.setDescription(array_electricAppliances.toString());
+            house.setFacility(array_facility.toString());
+            house.setClaim(array_claim.toString());
 
             houseDao.updateFacilities(house);
             responseBean.setCode(SUCCESS_CODE);
@@ -124,8 +123,7 @@ public class HouseManagerServiceImpl implements HouseManagerService {
         if (houseDao.findByRoomId(json.getLong("roomId")) != null) {
             House house = houseDao.findByRoomId(json.getLong("roomId"));
             house.setTradingRules(json.getString("tradingRules"));
-            // TODO: 2018/4/2 需要修改
-            house.setBreakContact(array_breakContact.getString(0) + "," + array_breakContact.getString(1));
+            house.setBreakContact(array_breakContact.toString());
             house.setLeastDay(json.getLong("leastDay"));
             house.setMostDay(json.getLong("mostDay"));
             house.setReceiveOutside(json.getLong("receiveOutside"));
@@ -161,7 +159,7 @@ public class HouseManagerServiceImpl implements HouseManagerService {
             house.setRoomArea(json.getLong("roomArea"));
             house.setLiveWithOwner(json.getLong("liveWithOwner"));
             house.setReplaceBedSheet(json.getString("replaceBedSheet"));
-            house.setBathroom(json.getString("bathroomType"));
+            house.setBathroomType(json.getString("bathroomType"));
             house.setBed(json.getString("bed"));
             house.setTip("tip");
             houseDao.updateBaseInfo(house);
@@ -277,7 +275,7 @@ public class HouseManagerServiceImpl implements HouseManagerService {
     public ResponseBean houseHaveReviewed(String str){
         ResponseBean responseBean = new ResponseBean();
         JSONObject json = JSON.parseObject(str);
-        if (json.getLong("type") == 0) {
+        if (json.getLong("type") == 0 ) {
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("查询成功");
             responseBean.setContent(houseDao.findHaveReviewedHouse(json.getLong("type")));
@@ -291,6 +289,27 @@ public class HouseManagerServiceImpl implements HouseManagerService {
             responseBean.setCode(FAIL_CODE);
             responseBean.setMessage("获取失败");
             responseBean.setContent("");
+        }
+        return responseBean;
+    }
+
+
+    @Override
+    public ResponseBean isReviewed(String str){
+        ResponseBean responseBean = new ResponseBean();
+        JSONObject json = JSON.parseObject(str);
+        if (json.getLong("haveReviewed") == 1 ){
+            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setMessage("查询已审核房源列表成功");
+            responseBean.setContent(houseDao.isReviewed(json.getLong("haveReviewed")));
+        }
+        else {
+//            responseBean.setCode(FAIL_CODE);
+//            responseBean.setMessage("获取失败");
+//            responseBean.setContent("");
+            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setMessage("查询未审核房源列表成功");
+            responseBean.setContent(houseDao.isReviewed(json.getLong("haveReviewed")));
         }
         return responseBean;
     }

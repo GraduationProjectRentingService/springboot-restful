@@ -67,25 +67,25 @@ public class HouseManagerController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "publish/getHouseListByHostId", method = RequestMethod.POST)
+    @RequestMapping(value = "getHouseListByHostId", method = RequestMethod.POST)
     public  ResponseBean getHouseListByHostId(@RequestBody String params){
         return houseManagerService.getHouseByHostId(params);
     }
 
     @CrossOrigin
-    @RequestMapping(value = "publish/getHouseListByAddress", method = RequestMethod.POST)
+    @RequestMapping(value = "getHouseListByAddress", method = RequestMethod.POST)
     public  ResponseBean getHouseListByAddress(@RequestBody String params){
         return houseManagerService.getHouseByAddress(params);
     }
 
     @CrossOrigin
-    @RequestMapping(value = "publish/getHouseListByTitle", method = RequestMethod.POST)
+    @RequestMapping(value = "getHouseListByTitle", method = RequestMethod.POST)
     public  ResponseBean getHouseListByTitle(@RequestBody String params){
         return houseManagerService.getHouseByTitle(params);
     }
 
     @CrossOrigin
-    @RequestMapping(value = "publish/getHouseListByHouseId", method = RequestMethod.POST)
+    @RequestMapping(value = "getHouseListByHouseId", method = RequestMethod.POST)
     public  ResponseBean getHouseListByHouseId(@RequestBody String params){
         return houseManagerService.getHouseByHouseId(params);
     }
@@ -102,6 +102,13 @@ public class HouseManagerController {
     @RequestMapping(value = "getHousehaveReviewed", method = RequestMethod.POST)
     public  ResponseBean getHousehaveReviewed(@RequestBody String params){
         return houseManagerService.houseHaveReviewed(params);
+    }
+
+    //管理员获取未审核房源列表
+    @CrossOrigin
+    @RequestMapping(value = "HouseisReviewed", method = RequestMethod.POST)
+    public  ResponseBean HouseisReviewed(@RequestBody String params){
+        return houseManagerService.isReviewed(params);
     }
 
     //测试

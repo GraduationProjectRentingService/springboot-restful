@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserDao {
 
-    List<User> findAllUesr();
+    List<User> findAllUser();
 
     User findByPhone(String phone_num);
 

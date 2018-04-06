@@ -32,4 +32,10 @@ public class UserController {
         return userService.login(user);
     }
 
+    @CrossOrigin
+    @RequestMapping(value = "/management/userManagement/getAllUser", method = RequestMethod.POST)
+    public ResponseBean getAllUser(@RequestBody String params) {
+        return userService.getAllUserList(params);
+    }
+
 }

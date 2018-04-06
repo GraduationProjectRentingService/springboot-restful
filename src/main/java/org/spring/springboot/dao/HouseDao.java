@@ -39,4 +39,6 @@ public interface HouseDao {
     String getHouseTitle(Long houseId);
 
     String getHostId(Long houseId);
+
+    List<House>  isReviewed(Long haveReviewed);
 }
