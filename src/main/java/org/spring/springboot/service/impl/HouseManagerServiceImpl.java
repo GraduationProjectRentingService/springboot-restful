@@ -298,15 +298,13 @@ public class HouseManagerServiceImpl implements HouseManagerService {
     public ResponseBean isReviewed(String str){
         ResponseBean responseBean = new ResponseBean();
         JSONObject json = JSON.parseObject(str);
-        if (json.getLong("haveReviewed") == 1 ){
+        if (json.getLong("haveReviewed") == 1 &&
+                json.getString("managementId").equals("Admin") && json.getString("password").equals("123456")){
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("查询已审核房源列表成功");
             responseBean.setContent(houseDao.isReviewed(json.getLong("haveReviewed")));
         }
         else {
-//            responseBean.setCode(FAIL_CODE);
-//            responseBean.setMessage("获取失败");
-//            responseBean.setContent("");
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("查询未审核房源列表成功");
             responseBean.setContent(houseDao.isReviewed(json.getLong("haveReviewed")));

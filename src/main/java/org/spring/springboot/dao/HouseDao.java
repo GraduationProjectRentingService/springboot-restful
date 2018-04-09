@@ -40,5 +40,6 @@ public interface HouseDao {
 
     String getHostId(Long houseId);
 
-    List<House>  isReviewed(Long haveReviewed);
+    List<House> isReviewed(Long haveReviewed);
+
 }

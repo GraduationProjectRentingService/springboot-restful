@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.spring.springboot.dao.HostDao;
 import org.spring.springboot.dao.HouseDao;
 import org.spring.springboot.domain.Host;
+import org.spring.springboot.domain.House;
 import org.spring.springboot.domain.ResponseBean;
 import org.spring.springboot.domain.User;
 import org.spring.springboot.service.HostService;
@@ -11,6 +12,7 @@ import org.spring.springboot.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import static org.spring.springboot.domain.ResponseBean.FAIL_CODE;

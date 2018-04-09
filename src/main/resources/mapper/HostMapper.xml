@@ -6,12 +6,18 @@
         <result column="phone_num" property="phoneNumber" />
         <result column="password" property="password" />
         <result column="token" property="token" />
+        <result column="hostName" property="hostName" />
+        <result column="nickName" property="nickName" />
+        <result column="id_card" property="id_card" />
+        <result column="email" property="email" />
+        <result column="houseNum" property="houseNum" />
+        <result column="houseList" property="houseList" />
     </resultMap>
 
     <parameterMap id="Host" type="org.spring.springboot.domain.Host"/>
 
     <sql id="Base_Column_List">
-        id, phone_num, password,token
+        id, phone_num, password,token,hostName,nickName,id_card,email,houseNum,houseList
     </sql>
 
     <select id="findByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
