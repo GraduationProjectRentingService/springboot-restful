@@ -4,14 +4,24 @@
     <resultMap id="BaseResultMap" type="org.spring.springboot.domain.User">
         <result column="id" property="id" />
         <result column="phone_num" property="phoneNumber" />
+        <result column="userName" property="name" />
         <result column="password" property="password" />
         <result column="token" property="token" />
+        <result column="nickName" property="nickName" />
+        <result column="idCard" property="idCard" />
+        <result column="email" property="email" />
+        <result column="elseAccount" property="elseAccount" />
+        <result column="pic" property="pic" />
+        <result column="sex" property="sex" />
+        <result column="birthday" property="birthday" />
+        <result column="job" property="job" />
+        <result column="education" property="education" />
     </resultMap>
 
     <parameterMap id="User" type="org.spring.springboot.domain.User"/>
 
     <sql id="Base_Column_List">
-        id, phone_num, password,token
+        id, phone_num,userName,password,token,nickName,idCard,email,elseAccount,pic,sex,birthday,job,education
     </sql>
 
     <select id="findByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -22,10 +32,10 @@
     </select>
 
     <select id="findAllUser" resultMap="BaseResultMap" >
-        select
-        <include refid="Base_Column_List" />
-        from user
-    </select>
+    select
+    <include refid="Base_Column_List" />
+    from user
+</select>
 
     <insert id="saveUser" parameterMap="User">
         insert into
@@ -55,10 +65,17 @@
         id = #{id}
     </update>
 
+    <update id="updateToken">
+        UPDATE user u
+        SET u.token = #{token}
+        WHERE u.phone_num = #{phoneNum}
+    </update>
+
     <delete id="deleteUser" parameterType="java.lang.Long">
         delete from
         user
         where
         id = #{id}
     </delete>
+
 </mapper>
