@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.spring.springboot.dao.FileDao">
+	<resultMap id="BaseResultMap" type="org.spring.springboot.domain.MyFile">
+		<result column="id" property="id" />
+		<result column="file_name" property="fileName" />
+		<result column="url" property="fileUrl" />
+	</resultMap>
+
+	<parameterMap id="MyFile" type="org.spring.springboot.domain.MyFile"/>
+
+	<insert id="saveFile" parameterMap="MyFile" useGeneratedKeys="true" keyProperty="id">
+		insert into
+			file(file_name,url)
+		values
+			(#{fileName},#{fileUrl})
+	</insert>
+</mapper>

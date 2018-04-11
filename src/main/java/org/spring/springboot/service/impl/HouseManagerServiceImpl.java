@@ -275,7 +275,9 @@ public class HouseManagerServiceImpl implements HouseManagerService {
         if ( houseDao.findHaveReviewedHouse() != null ) {
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("获取房源列表成功");
-            responseBean.setContent(houseDao.findHaveReviewedHouse());
+            JSONObject content = new JSONObject();
+            content.put("list", houseDao.findHaveReviewedHouse());
+            responseBean.setContent(content);
         }
         else {
             responseBean.setCode(FAIL_CODE);
