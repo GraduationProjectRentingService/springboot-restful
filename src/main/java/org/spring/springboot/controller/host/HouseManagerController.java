@@ -73,24 +73,6 @@ public class HouseManagerController {
         return houseManagerService.getHouseByHostId(host);
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "getHouseListByAddress", method = RequestMethod.POST)
-    public  ResponseBean getHouseListByAddress(@RequestBody String params){
-        return houseManagerService.getHouseByAddress(params);
-    }
-
-    @CrossOrigin
-    @RequestMapping(value = "getHouseListByTitle", method = RequestMethod.POST)
-    public  ResponseBean getHouseListByTitle(@RequestBody String params){
-        return houseManagerService.getHouseByTitle(params);
-    }
-
-    @CrossOrigin
-    @RequestMapping(value = "getHouseListByHouseId", method = RequestMethod.POST)
-    public  ResponseBean getHouseListByHouseId(@RequestBody String params){
-        return houseManagerService.getHouseByHouseId(params);
-    }
-
     //修改房源审核状态
     @CrossOrigin
     @RequestMapping(value = "updateHousehaveReviewed", method = RequestMethod.POST)
@@ -126,4 +108,30 @@ public class HouseManagerController {
         return houseManagerService.houseHaveReviewed();
     }
 
+    //用户根据房源地址搜索
+    @CrossOrigin
+    @RequestMapping(value = "user/getHouseListByAddress", method = RequestMethod.POST)
+    public  ResponseBean getHouseListByAddress(@RequestBody String params){
+        return houseManagerService.getHouseByAddress(params);
+    }
+
+    //用户根据房源标题搜索
+    @CrossOrigin
+    @RequestMapping(value = "user/getHouseListByTitle", method = RequestMethod.POST)
+    public  ResponseBean getHouseListByTitle(@RequestBody String params){
+        return houseManagerService.getHouseByTitle(params);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "getHouseListByHouseId", method = RequestMethod.POST)
+    public  ResponseBean getHouseListByHouseId(@RequestBody String params){
+        return houseManagerService.getHouseByHouseId(params);
+    }
+
+    //房东删除房源
+    @CrossOrigin
+    @RequestMapping(value = "hostRemoveOneHouse", method = RequestMethod.POST)
+    public  ResponseBean hostRemoveOneHouse(String params){
+        return houseManagerService.RemoveOneHouse(params);
+    }
 }

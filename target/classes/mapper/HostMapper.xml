@@ -33,6 +33,27 @@
         from host
     </select>
 
+    <select id="findHostUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from host
+        where hostName = #{hostName}
+    </select>
+
+    <select id="findHostUserByNickName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from host
+        where nickName = #{nickName}
+    </select>
+
+    <select id="findHostUserByphoneNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from host
+        where phone_num = #{phoneNumber}
+    </select>
+
     <insert id="saveHost" parameterMap="Host">
         insert into
         host(phone_num,password,token)

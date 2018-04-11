@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService{
 
         responseBean.setCode(SUCCESS_CODE);
         responseBean.setMessage("生成订单成功");
-        responseBean.setContent("");
+        responseBean.setContent(id);
         return responseBean;
     }
 

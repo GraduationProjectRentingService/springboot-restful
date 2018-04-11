@@ -35,7 +35,7 @@
     select
     <include refid="Base_Column_List" />
     from user
-</select>
+    </select>
 
     <insert id="saveUser" parameterMap="User">
         insert into

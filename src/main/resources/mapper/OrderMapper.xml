@@ -24,11 +24,11 @@
 
     <!-- 创建订单 -->
     <insert id="createAnOrder" parameterMap="Order">
-        INSERT INTO orderTable(id,houseId,houseTitle,userId,hostId,startTime,endTime,dateNum) VALUES (#{id},#{houseId},#{houseTitle},#{userId},#{hostId},#{startTime},#{endTime},#{dateNum})
+        INSERT INTO ordertable(id,houseId,houseTitle,userId,hostId,startTime,endTime,dateNum) VALUES (#{id},#{houseId},#{houseTitle},#{userId},#{hostId},#{startTime},#{endTime},#{dateNum})
     </insert>
 
     <select id="FindMaxOrderId" resultType="java.lang.Long">
-    select max(id) from orderTable
+    select max(id) from ordertable
     </select>
 
 </mapper>

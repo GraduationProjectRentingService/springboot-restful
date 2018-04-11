@@ -326,6 +326,25 @@ public class HouseManagerServiceImpl implements HouseManagerService {
         return responseBean;
     }
 
+    //???未知错误
+    @Override
+    public ResponseBean RemoveOneHouse(String str){
+        ResponseBean responseBean = new ResponseBean();
+        JSONObject json = JSON.parseObject(str);
+        if(json.getLong("roomId")!=null){
+            houseDao.RemoveHouse(json.getLong("roomId"));
+            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setMessage("删除房源成功");
+            responseBean.setContent( "被删除房源的ID："+json.getLong("roomId") );
+        }
+        else {
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("删除房源失败");
+            responseBean.setContent("");
+        }
+        return responseBean;
+    }
+
     @Override
     public ResponseBean getTitle(String str){
         ResponseBean responseBean = new ResponseBean();

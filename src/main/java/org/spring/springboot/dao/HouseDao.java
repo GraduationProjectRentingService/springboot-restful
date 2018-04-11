@@ -43,4 +43,6 @@ public interface HouseDao {
     List<House> isReviewed(Long haveReviewed);
 
     int updateApproveMessage(House approveMessage);
+
+    int RemoveHouse(Long house);
 }

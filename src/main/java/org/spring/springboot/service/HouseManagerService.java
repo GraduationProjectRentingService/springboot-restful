@@ -37,4 +37,6 @@ public interface HouseManagerService {
     ResponseBean isReviewed(String params);
 
     ResponseBean HouseNotPass(String str);
+
+    ResponseBean RemoveOneHouse(String str);
 }

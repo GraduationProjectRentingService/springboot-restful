@@ -225,4 +225,11 @@
         where haveReviewed = #{haveReviewed}
     </select>
 
+    <delete id="RemoveHouse" parameterMap="House">
+        delete from
+        house
+        where
+        id = #{roomId}
+    </delete>
+
 </mapper>
