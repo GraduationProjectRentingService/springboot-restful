@@ -22,4 +22,10 @@ public interface HostDao {
     int updateToken(@Param("phoneNum") String phoneNum, @Param("token") String token);
 
     List<Host> findAllUser();
+
+    List<Host> findHostUserByName(String hostName);
+
+    List<Host>  findHostUserByNickName(String nickName);
+
+    List<Host>  findHostUserByphoneNumber(String phoneNumber);
 }

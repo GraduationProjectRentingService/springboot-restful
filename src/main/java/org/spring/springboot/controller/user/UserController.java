@@ -32,6 +32,7 @@ public class UserController {
         return userService.login(user);
     }
 
+    //管理员获取所有房客信息
     @CrossOrigin
     @RequestMapping(value = "/management/userManagement/getAllUser", method = RequestMethod.POST)
     public ResponseBean getAllUser(@RequestBody String params) {

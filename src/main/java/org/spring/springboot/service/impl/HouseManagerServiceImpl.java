@@ -7,13 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spring.springboot.dao.HouseDao;
 import org.spring.springboot.dao.UserDao;
+import org.spring.springboot.domain.Host;
 import org.spring.springboot.domain.House;
 import org.spring.springboot.domain.ResponseBean;
 import org.spring.springboot.service.HouseManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 import static org.spring.springboot.domain.ResponseBean.FAIL_CODE;
 import static org.spring.springboot.domain.ResponseBean.SUCCESS_CODE;
@@ -191,13 +190,12 @@ public class HouseManagerServiceImpl implements HouseManagerService {
     }
 
     @Override
-    public ResponseBean getHouseByHostId(String str){
+    public ResponseBean getHouseByHostId(Host host){
         ResponseBean responseBean = new ResponseBean();
-        JSONObject json = JSON.parseObject(str);
-        if (userDao.findByPhone(json.getString("phoneNumber")) != null) {
+        if (host.getPhoneNumber() != null) {
             responseBean.setCode(SUCCESS_CODE);
-            responseBean.setMessage("查询成功");
-            responseBean.setContent(houseDao.findHouseByHostId(json.getString("hostPhoneNumber")));
+            responseBean.setMessage("查询房东所属房源信息成功");
+            responseBean.setContent(houseDao.findHouseByHostId(host.getPhoneNumber()));
         } else {
             responseBean.setCode(FAIL_CODE);
             responseBean.setMessage("获取失败");
@@ -210,7 +208,7 @@ public class HouseManagerServiceImpl implements HouseManagerService {
     public ResponseBean getHouseByAddress(String str){
         ResponseBean responseBean = new ResponseBean();
         JSONObject json = JSON.parseObject(str);
-        if (userDao.findByPhone(json.getString("phoneNumber")) != null) {
+        if (json.getString("address") != null) {
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("查询成功");
             responseBean.setContent(houseDao.findHouseByAddress(json.getString("address")));
@@ -226,7 +224,7 @@ public class HouseManagerServiceImpl implements HouseManagerService {
     public ResponseBean getHouseByTitle(String str){
         ResponseBean responseBean = new ResponseBean();
         JSONObject json = JSON.parseObject(str);
-        if (userDao.findByPhone(json.getString("phoneNumber")) != null) {
+        if (json.getString("title") != null) {
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("查询成功");
             responseBean.setContent(houseDao.findHouseByTitle(json.getString("title")));
@@ -272,22 +270,16 @@ public class HouseManagerServiceImpl implements HouseManagerService {
     }
 
     @Override
-    public ResponseBean houseHaveReviewed(String str){
+    public ResponseBean houseHaveReviewed(){
         ResponseBean responseBean = new ResponseBean();
-        JSONObject json = JSON.parseObject(str);
-        if (json.getLong("type") == 0 ) {
+        if ( houseDao.findHaveReviewedHouse() != null ) {
             responseBean.setCode(SUCCESS_CODE);
-            responseBean.setMessage("查询成功");
-            responseBean.setContent(houseDao.findHaveReviewedHouse(json.getLong("type")));
-        }
-        else if(json.getLong("type") < 5){
-            responseBean.setCode(SUCCESS_CODE);
-            responseBean.setMessage("查询成功");
-            responseBean.setContent(houseDao.findTypeHouse(json.getLong("type")));
+            responseBean.setMessage("获取房源列表成功");
+            responseBean.setContent(houseDao.findHaveReviewedHouse());
         }
         else {
             responseBean.setCode(FAIL_CODE);
-            responseBean.setMessage("获取失败");
+            responseBean.setMessage("获取房源列表失败");
             responseBean.setContent("");
         }
         return responseBean;
@@ -305,9 +297,29 @@ public class HouseManagerServiceImpl implements HouseManagerService {
             responseBean.setContent(houseDao.isReviewed(json.getLong("haveReviewed")));
         }
         else {
-            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setCode(FAIL_CODE);
             responseBean.setMessage("查询未审核房源列表成功");
-            responseBean.setContent(houseDao.isReviewed(json.getLong("haveReviewed")));
+            responseBean.setContent("");
+        }
+        return responseBean;
+    }
+
+    @Override
+    public ResponseBean HouseNotPass(String str){
+        ResponseBean responseBean = new ResponseBean();
+        JSONObject json = JSON.parseObject(str);
+        if ( houseDao.findByRoomId(json.getLong("roomId")) != null && json.getString("approveMessage") != null ){
+            House house = houseDao.findByRoomId(json.getLong("roomId"));
+            house.setApproveMessage(json.getString("approveMessage"));
+            houseDao.updateApproveMessage(house);
+            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setMessage("完成设置审核不通过房源");
+            responseBean.setContent("");
+        }
+        else {
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("审核不通过房源未作备注");
+            responseBean.setContent("");
         }
         return responseBean;
     }

@@ -131,4 +131,53 @@ public class HostServiceImpl implements HostService {
         }
         return responseBean;
     }
+
+    @Override
+    public ResponseBean getHostByName(String str){
+        ResponseBean responseBean = new ResponseBean();
+        JSONObject json = JSON.parseObject(str);
+        if ( json.getString("hostName") != null ) {
+            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setMessage("根据房东名字查询房东信息成功");
+            responseBean.setContent(hostDao.findHostUserByName(json.getString("hostName")));
+        } else {
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("获取房东信息失败");
+            responseBean.setContent("");
+        }
+        return responseBean;
+    }
+
+    @Override
+    public ResponseBean getHostByNickName(String str){
+        ResponseBean responseBean = new ResponseBean();
+        JSONObject json = JSON.parseObject(str);
+        if ( json.getString("nickName") != null ) {
+            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setMessage("根据房东昵称查询房东信息成功");
+            responseBean.setContent(hostDao.findHostUserByNickName(json.getString("nickName")));
+        } else {
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("获取房东信息失败");
+            responseBean.setContent("");
+        }
+        return responseBean;
+    }
+
+    @Override
+    public ResponseBean getHostByphoneNum(String str){
+        ResponseBean responseBean = new ResponseBean();
+        JSONObject json = JSON.parseObject(str);
+        if ( json.getString("phoneNumber") != null ) {
+            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setMessage("根据房东电话号码查询房东信息成功");
+            responseBean.setContent(hostDao.findHostUserByphoneNumber(json.getString("phoneNumber")));
+        } else {
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("获取房东信息失败");
+            responseBean.setContent("");
+        }
+        return responseBean;
+    }
+
 }

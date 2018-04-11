@@ -66,10 +66,11 @@ public class HouseManagerController {
         return houseManagerService.getAllHouse(params);
     }
 
+    //房东管理·房东获取房源列表
     @CrossOrigin
     @RequestMapping(value = "getHouseListByHostId", method = RequestMethod.POST)
-    public  ResponseBean getHouseListByHostId(@RequestBody String params){
-        return houseManagerService.getHouseByHostId(params);
+    public  ResponseBean getHouseListByHostId(@RequestBody Host host){
+        return houseManagerService.getHouseByHostId(host);
     }
 
     @CrossOrigin
@@ -97,11 +98,11 @@ public class HouseManagerController {
         return houseManagerService.updateHouseReviewed(house);
     }
 
-    //用户获取房源列表
+    //房源审核不通过
     @CrossOrigin
-    @RequestMapping(value = "getHousehaveReviewed", method = RequestMethod.POST)
-    public  ResponseBean getHousehaveReviewed(@RequestBody String params){
-        return houseManagerService.houseHaveReviewed(params);
+    @RequestMapping(value = "HouseNoPass", method = RequestMethod.POST)
+    public  ResponseBean HouseNoPass(@RequestBody String params){
+        return houseManagerService.HouseNotPass(params);
     }
 
     //管理员获取未审核房源列表
@@ -118,5 +119,11 @@ public class HouseManagerController {
         return houseManagerService.getTitle(params);
     }
 
+    //用户获取房源列表
+    @CrossOrigin
+    @RequestMapping(value = "user/getHousehaveReviewed", method = RequestMethod.POST)
+    public  ResponseBean getHousehaveReviewed(){
+        return houseManagerService.houseHaveReviewed();
+    }
 
 }

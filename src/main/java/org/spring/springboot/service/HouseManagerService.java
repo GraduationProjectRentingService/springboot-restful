@@ -1,5 +1,6 @@
 package org.spring.springboot.service;
 
+import org.spring.springboot.domain.Host;
 import org.spring.springboot.domain.House;
 import org.spring.springboot.domain.ResponseBean;
 
@@ -19,7 +20,7 @@ public interface HouseManagerService {
 
     ResponseBean getAllHouse(String str);
 
-    ResponseBean getHouseByHostId(String str);
+    ResponseBean getHouseByHostId(Host str);
 
     ResponseBean getHouseByAddress(String str);
 
@@ -29,9 +30,11 @@ public interface HouseManagerService {
 
     ResponseBean updateHouseReviewed(House house);
 
-    ResponseBean houseHaveReviewed(String str);
+    ResponseBean houseHaveReviewed();
 
     ResponseBean getTitle(String params);
 
     ResponseBean isReviewed(String params);
+
+    ResponseBean HouseNotPass(String str);
 }

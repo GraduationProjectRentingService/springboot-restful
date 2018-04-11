@@ -30,7 +30,7 @@ public interface HouseDao {
 
     List<House> findHouseByTitle(String str);
 
-    List<House> findHaveReviewedHouse(Long type);
+    List<House> findHaveReviewedHouse();
 
     int updateReviewed(House house);
 
@@ -42,4 +42,5 @@ public interface HouseDao {
 
     List<House> isReviewed(Long haveReviewed);
 
+    int updateApproveMessage(House approveMessage);
 }

@@ -79,6 +79,16 @@ public class House {
 
     private String bathroomType;
 
+    private String approveMessage;
+
+    public String getApproveMessage() {
+        return approveMessage;
+    }
+
+    public void setApproveMessage(String approveMessage) {
+        this.approveMessage = approveMessage;
+    }
+
     public String getBathroomType() {
         return bathroomType;
     }

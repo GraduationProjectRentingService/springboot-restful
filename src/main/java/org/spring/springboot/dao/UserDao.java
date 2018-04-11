@@ -19,4 +19,8 @@ public interface UserDao {
     int deleteUser(Long id);
 
     int updateToken(@Param("phoneNum") String phoneNum, @Param("token") String token);
+
+    List<User> findUserByName(String userName);
+
+    List<User> findUserByNickName(String nickName);
 }

@@ -42,6 +42,7 @@
         <result column="picOne" property="picOne" />
         <result column="picAll" property="picAll" />
         <result column="bathroomType" property="bathroomType" />
+        <result column="approveMessage" property="approveMessage" />
     </resultMap>
 
     <parameterMap id="House" type="org.spring.springboot.domain.House"/>
@@ -50,7 +51,7 @@
         id,hostId,title,houseInfo,trafficCondition,surroundCondition,facility,bathroom,electricAppliances,facility,claim,description,
         dailyPrice,deposit,addGuest,otherPrice,tradingRules,breakContact,leastDay,mostDay,receiveOutside,otherRequirement,tip,
         address,rentalType,rentalTypeText,peopleNum,roomNum,hallNum,bathroomNum,kitchenNum,balconyNum,roomArea,liveWithOwner,bed,replaceBedSheet,
-        haveReviewed,type,picOne,picAll,bathroomType
+        haveReviewed,type,picOne,picAll,bathroomType,approveMessage
     </sql>
 
     <!-- 创建房源 -->
@@ -153,6 +154,15 @@
         bed = #{bed},
         replaceBedSheet = #{replaceBedSheet},
         bathroomType = #{bathroomType}
+        where
+        id = #{id}
+    </update>
+
+    <update id="updateApproveMessage" parameterMap="House">
+        update
+        house
+        set
+        approveMessage = #{approveMessage}
         where
         id = #{id}
     </update>
