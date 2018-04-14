@@ -1,6 +1,8 @@
 package org.spring.springboot.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.spring.springboot.domain.House;
+import sun.rmi.runtime.Log;
 
 import java.util.List;
 
@@ -19,6 +21,8 @@ public interface HouseDao {
     int updateRuleRequirement(House house);
 
     int updateBaseInfo(House house);
+
+    int saveImages(@Param("houseId") long houseId, @Param("hostId") String hostId, @Param("picAll") String picAll, @Param("picOne") String picOne);
 
     long FindMaxRoomId();
 

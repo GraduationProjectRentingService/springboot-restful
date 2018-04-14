@@ -167,6 +167,15 @@
         id = #{id}
     </update>
 
+    <update id="saveImages">
+        update
+        house
+        set
+        picAll = #{picAll}, picOne = #{picOne}
+        where
+        id = #{houseId} and hostId = #{hostId}
+    </update>
+
     <select id="getHouseList" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
         <include refid="Base_Column_List" />

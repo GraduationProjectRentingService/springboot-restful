@@ -18,6 +18,8 @@ public interface HouseManagerService {
 
     ResponseBean saveBaseInfo(String str);
 
+    ResponseBean saveImages(long roomId, String hostId, String picAll, String picOne);
+
     ResponseBean getAllHouse(String str);
 
     ResponseBean getHouseByHostId(Host str);

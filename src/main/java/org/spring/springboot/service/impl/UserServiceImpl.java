@@ -75,7 +75,30 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public ResponseBean updateUser(User user) {
-        return null;
+        ResponseBean responseBean = new ResponseBean();
+        userDao.updateUser(user);
+        responseBean.setMessage("修改用户信息成功");
+        responseBean.setCode(SUCCESS_CODE);
+        return responseBean;
+    }
+
+    @Override
+    public ResponseBean getUserInfo(String phone) {
+        ResponseBean responseBean = new ResponseBean();
+        User user = userDao.findByPhone(phone);
+        if (user != null){
+            responseBean.setMessage("获取用户信息成功！");
+            responseBean.setCode(SUCCESS_CODE);
+            JSONObject content = new JSONObject();
+            user.setPassword("");
+            user.setToken("");
+            content.put("user", user);
+            responseBean.setContent(content);
+        }else {
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("用户不存在");
+        }
+        return responseBean;
     }
 
     @Override

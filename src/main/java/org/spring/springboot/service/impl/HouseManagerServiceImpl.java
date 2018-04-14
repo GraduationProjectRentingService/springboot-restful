@@ -174,6 +174,26 @@ public class HouseManagerServiceImpl implements HouseManagerService {
     }
 
     @Override
+    public ResponseBean saveImages(long roomId, String hostId, String picAll, String picOne) {
+        ResponseBean responseBean = new ResponseBean();
+        House house = houseDao.findByRoomId(roomId);
+        if (house == null){
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("找不到id为" + roomId + "的房源");
+        }else {
+            if (!hostId.equals(house.getHostId())){
+                responseBean.setCode(FAIL_CODE);
+                responseBean.setMessage("保存失败，该房源不属于" + hostId + "房东的");
+            }else {
+                houseDao.saveImages(roomId, hostId, picAll, picOne);
+                responseBean.setCode(SUCCESS_CODE);
+                responseBean.setMessage("保存照片成功！");
+            }
+        }
+        return responseBean;
+    }
+
+    @Override
     public ResponseBean getAllHouse(String str) {
         ResponseBean responseBean = new ResponseBean();
         JSONObject json = JSON.parseObject(str);

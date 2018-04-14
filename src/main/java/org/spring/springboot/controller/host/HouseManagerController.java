@@ -1,5 +1,7 @@
 package org.spring.springboot.controller.host;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.spring.springboot.domain.Host;
 import org.spring.springboot.domain.House;
 import org.spring.springboot.domain.ResponseBean;
@@ -58,6 +60,23 @@ public class HouseManagerController {
     @RequestMapping(value = "publish/saveHouseBaseInfo", method = RequestMethod.POST)
     public  ResponseBean saveHouseBaseInfo(@RequestBody String params){
         return houseManagerService.saveBaseInfo(params);
+    }
+
+    // TODO: 2018/4/15 保存图片
+    @CrossOrigin
+    @RequestMapping(value = "publish/saveImages", method = RequestMethod.POST)
+    public ResponseBean saveImages(@RequestBody String params){
+        JSONObject jsonObject = JSON.parseObject(params);
+        String hostPhone = jsonObject.getString("phoneNumber");
+        String token = jsonObject.getString("token");
+        MyExceptionAssert.isNotBlank(hostPhone, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房东账号不能为空！");
+        MyExceptionAssert.isNotBlank(token, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "token不能为空！");
+        MyExceptionAssert.isTrue(hostService.findHostUserByPhoneNum(hostPhone) != null, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "该账号不存在！");
+        MyExceptionAssert.isTrue(hostService.isHostUserTokenLegal(hostPhone, token), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "Token过期，请重新登录！");
+        long roomId = jsonObject.getLong("roomId");
+        String picAll = jsonObject.getString("picAll");
+        String picOne = jsonObject.getString("picOne");
+        return houseManagerService.saveImages(roomId, hostPhone, picAll, picOne);
     }
 
     @CrossOrigin
@@ -134,4 +153,5 @@ public class HouseManagerController {
     public  ResponseBean hostRemoveOneHouse(String params){
         return houseManagerService.RemoveOneHouse(params);
     }
+
 }

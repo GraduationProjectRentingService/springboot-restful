@@ -32,6 +32,22 @@ public class UserController {
         return userService.login(user);
     }
 
+    @RequestMapping(value = "/user/updateUserInfo", method = RequestMethod.POST)
+    public ResponseBean updateUserInfo(@RequestBody User user){
+        MyExceptionAssert.isNotBlank(user.getPhoneNumber(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "该账号不能为空！");
+        MyExceptionAssert.isNotBlank(user.getToken(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "token不能为空！");
+        MyExceptionAssert.isTrue(userService.isUserTokenLegal(user.getPhoneNumber(), user.getToken()), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "Token过期，请重新登录！");
+        return userService.updateUser(user);
+    }
+
+    @RequestMapping(value = "/user/getUserInfo", method = RequestMethod.POST)
+    public ResponseBean getUserInfo(@RequestBody User user){
+        MyExceptionAssert.isNotBlank(user.getPhoneNumber(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "该账号不能为空！");
+        MyExceptionAssert.isNotBlank(user.getToken(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "token不能为空！");
+        MyExceptionAssert.isTrue(userService.isUserTokenLegal(user.getPhoneNumber(), user.getToken()), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "Token过期，请重新登录！");
+        return userService.getUserInfo(user.getPhoneNumber());
+    }
+
     //管理员获取所有房客信息
     @CrossOrigin
     @RequestMapping(value = "/management/userManagement/getAllUser", method = RequestMethod.POST)

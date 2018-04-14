@@ -42,6 +42,13 @@ public interface UserService {
     ResponseBean updateUser(User user);
 
     /**
+     * 获取用户信息
+     * @param phone
+     * @return
+     */
+    ResponseBean getUserInfo(String phone);
+
+    /**
      * 根据 ID,删除信息
      *
      * @param id

@@ -52,17 +52,9 @@
     </insert>
 
     <update id="updateUser" parameterMap="User">
-        update
-        user
-        set
-        <if test="phoneNumber!=null">
-            phone_num = #{phoneNumber},
-        </if>
-        <if test="password!=null">
-            password = #{password},
-        </if>
-        where
-        id = #{id}
+        update user u
+        set u.userName = #{name}, u.pic = #{pic}, u.sex = #{sex}
+        where phone_num = #{phoneNumber}
     </update>
 
     <update id="updateToken">
