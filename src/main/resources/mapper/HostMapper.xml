@@ -12,12 +12,17 @@
         <result column="email" property="email" />
         <result column="houseNum" property="houseNum" />
         <result column="houseList" property="houseList" />
+        <result column="haveWriten" property="haveWriten" />
+        <result column="sex" property="sex" />
+        <result column="address" property="address" />
+        <result column="birthday" property="birthday" />
+        <result column="education" property="education" />
     </resultMap>
 
     <parameterMap id="Host" type="org.spring.springboot.domain.Host"/>
 
     <sql id="Base_Column_List">
-        id, phone_num, password,token,hostName,nickName,id_card,email,houseNum,houseList
+        id, phone_num, password,token,hostName,nickName,id_card,email,houseNum,houseList,haveWriten,sex,address,birthday,education
     </sql>
 
     <select id="findByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -82,6 +87,26 @@
         id = #{id}
     </update>
 
+    <update id="updateHostImformation" parameterMap="Host">
+        update
+        host
+        set
+        <if test="password!=null">
+            password = #{password},
+        </if>
+        hostName = #{hostName},
+        nickName = #{nickName},
+        id_card = #{id_card},
+        email = #{email},
+        sex = #{sex},
+        address = #{address},
+        birthday = #{birthday},
+        education = #{education},
+        haveWriten = 1
+        where
+        phone_num = #{phoneNumber}
+    </update>
+
     <delete id="deleteHost" parameterType="java.lang.Long">
         delete from
         host
@@ -94,4 +119,12 @@
         set h.token = #{token}
         WHERE h.phone_num = #{phoneNum}
     </update>
+
+    <select id="findHostImformation" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from host
+        where phone_num = #{phoneNumber}
+    </select>
+
 </mapper>

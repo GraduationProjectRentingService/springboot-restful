@@ -7,4 +7,6 @@ public interface OrderService {
     ResponseBean checkBookingReservations(String str);
 
     ResponseBean createOneOrder(String str);
+
+    ResponseBean getOrder(String str);
 }

@@ -28,4 +28,8 @@ public interface HostDao {
     List<Host>  findHostUserByNickName(String nickName);
 
     List<Host>  findHostUserByphoneNumber(String phoneNumber);
+
+    Host findHostImformation(String id);
+
+    int updateHostImformation(Host host);
 }

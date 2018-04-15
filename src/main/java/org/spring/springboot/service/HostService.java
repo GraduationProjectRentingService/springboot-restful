@@ -68,4 +68,8 @@ public interface HostService {
     ResponseBean getHostByNickName(String params);
 
     ResponseBean getHostByphoneNum(String params);
+
+    ResponseBean getImformation(String params);
+
+    ResponseBean saveInformation(String params);
 }

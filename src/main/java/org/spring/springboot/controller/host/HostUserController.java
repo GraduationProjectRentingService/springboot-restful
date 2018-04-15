@@ -62,4 +62,18 @@ public class HostUserController {
         return hostService.getHostByphoneNum(params);
     }
 
+    //个人信息接口
+    @CrossOrigin
+    @RequestMapping(value = "/host/getHostInformation", method = RequestMethod.POST)
+    public ResponseBean getHostInformation(@RequestBody String params) {
+        return hostService.getImformation(params);
+    }
+
+    //房东保存个人信息接口
+    @CrossOrigin
+    @RequestMapping(value = "/host/saveHostInformation", method = RequestMethod.POST)
+    public ResponseBean saveInformation(@RequestBody String params) {
+        return hostService.saveInformation(params);
+    }
+
 }

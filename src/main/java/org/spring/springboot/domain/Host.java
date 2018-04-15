@@ -25,6 +25,56 @@ public class Host {
 
     private String houseList;
 
+    private Long haveWriten;
+
+    private String sex;
+
+    private String address;
+
+    private String birthday;
+
+    private String education;
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    public Long getHaveWriten() {
+        return haveWriten;
+    }
+
+    public void setHaveWriten(Long haveWriten) {
+        this.haveWriten = haveWriten;
+    }
+
     public String getHouseList() {
         return houseList;
     }

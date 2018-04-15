@@ -54,4 +54,20 @@ public class OrderServiceImpl implements OrderService{
         return responseBean;
     }
 
+    @Override
+    public ResponseBean getOrder(String str){
+        ResponseBean responseBean = new ResponseBean();
+        JSONObject json = JSON.parseObject(str);
+        if( json.getLong("orderState") != null){
+            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setMessage("获取与房东有关的订单成功");
+            responseBean.setContent(orderDao.getAllOrder(json.getLong("hostId")));
+          }
+        else {
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("获取订单失败");
+            responseBean.setContent("");
+        }
+        return responseBean;
+    }
 }

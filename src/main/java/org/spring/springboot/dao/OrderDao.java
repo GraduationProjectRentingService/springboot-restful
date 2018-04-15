@@ -10,4 +10,8 @@ public interface OrderDao {
 
     int createAnOrder(Order order);
 
+    List<Order> getAllOrder(Long houseId);
+
+    List<Order>  getAnOrder(Long orderState, Long hostId);
+
 }

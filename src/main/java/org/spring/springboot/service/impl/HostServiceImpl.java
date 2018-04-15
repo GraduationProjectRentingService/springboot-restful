@@ -180,4 +180,48 @@ public class HostServiceImpl implements HostService {
         return responseBean;
     }
 
+    @Override
+    public ResponseBean getImformation(String str){
+        ResponseBean responseBean = new ResponseBean();
+        JSONObject json = JSON.parseObject(str);
+        if ( json.getLong("haveWriten") == 1 ) {
+            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setMessage("获取房东已填写信息成功");
+            responseBean.setContent(hostDao.findHostImformation(json.getString("phoneNumber")));
+        } else {
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("房东个人信息未填写");
+            responseBean.setContent("");
+        }
+        return responseBean;
+    }
+
+    @Override
+    public ResponseBean saveInformation(String str){
+        ResponseBean responseBean = new ResponseBean();
+        JSONObject json = JSON.parseObject(str);
+        if ( json.getLong("phoneNumber") != null ) {
+            Host host = hostDao.findByPhone(json.getString("phoneNumber"));
+            host.setPassword(json.getString("password"));
+            host.setHostName(json.getString("hostName"));
+            host.setNickName(json.getString("nickName"));
+            host.setId_card(json.getString("id_card"));
+            host.setEmail(json.getString("email"));
+            host.setSex(json.getString("sex"));
+            host.setAddress(json.getString("address"));
+            host.setBirthday(json.getString("birthday"));
+            host.setEducation(json.getString("education"));
+            host.setHaveWriten((long) 1);
+            hostDao.updateHostImformation(host);
+            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setMessage("保存房东信息成功");
+            responseBean.setContent("");
+        } else {
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("房东信息未保存");
+            responseBean.setContent("");
+        }
+        return responseBean;
+    }
+
 }

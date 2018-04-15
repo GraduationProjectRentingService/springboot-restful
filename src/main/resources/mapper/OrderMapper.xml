@@ -31,4 +31,18 @@
     select max(id) from ordertable
     </select>
 
+    <select id="getAllOrder" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from ordertable
+        where hostId = #{hostId}
+    </select>
+
+    <select id="getOrder" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from ordertable
+        where hostId = #{hostId} and orderState = #{orderState}
+    </select>
+
 </mapper>

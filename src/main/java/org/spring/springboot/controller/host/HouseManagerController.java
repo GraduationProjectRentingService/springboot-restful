@@ -150,7 +150,7 @@ public class HouseManagerController {
     //房东删除房源
     @CrossOrigin
     @RequestMapping(value = "hostRemoveOneHouse", method = RequestMethod.POST)
-    public  ResponseBean hostRemoveOneHouse(String params){
+    public  ResponseBean hostRemoveOneHouse(@RequestBody String params){
         return houseManagerService.RemoveOneHouse(params);
     }
 

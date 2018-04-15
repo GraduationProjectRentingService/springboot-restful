@@ -4,10 +4,7 @@ import org.spring.springboot.domain.Order;
 import org.spring.springboot.domain.ResponseBean;
 import org.spring.springboot.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Administrator on 2018/4/1.
@@ -19,8 +16,15 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @CrossOrigin
     @RequestMapping(value = "order/createOrder", method = RequestMethod.POST)
     public ResponseBean createOrder(@RequestBody String params) {
         return orderService.createOneOrder(params);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "order/getAllOrder", method = RequestMethod.POST)
+    public ResponseBean getAllOrder(@RequestBody String params) {
+        return orderService.getOrder(params);
     }
 }
