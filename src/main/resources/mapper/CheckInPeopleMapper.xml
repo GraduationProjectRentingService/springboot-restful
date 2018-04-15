@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.spring.springboot.dao.CheckInPeopleDao">
+	<resultMap id="BaseResultMap" type="org.spring.springboot.domain.CheckInPeople">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="id_card" property="idCard" />
+		<result column="belong_user_id" property="belongUserId" />
+	</resultMap>
+
+	<parameterMap id="CheckInPeople" type="org.spring.springboot.domain.CheckInPeople"/>
+
+	<sql id="Base_Column_List">
+		id, id_card, name, phone, belong_user_id
+	</sql>
+
+	<select id="findById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from check_in_people
+		where id = #{id}
+	</select>
+
+	<select id="findByBelongUserIdAndIdCard" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from check_in_people
+		where belong_user_id = #{belongUserId} AND id_card = #{idCard}
+	</select>
+
+	<select id="findAllByBelongUserId" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from check_in_people
+		where belong_user_id = #{belongUserId}
+	</select>
+
+	<insert id="createCheckInPeople" parameterMap="CheckInPeople" useGeneratedKeys="true" keyProperty="id">
+		insert into
+			check_in_people(name,id_card,phone,belong_user_id)
+		values
+			(#{name},#{idCard},#{phone},#{belongUserId})
+	</insert>
+
+	<update id="updateCheckInPeople" parameterMap="CheckInPeople">
+		update
+			check_in_people
+		set
+		<if test="name!=null">
+			name = #{name},
+		</if>
+		<if test="idCard!=null">
+			id_card = #{idCard},
+		</if>
+		<if test="phone!=null">
+			phone = #{phone}
+		</if>
+		where
+			id = #{id}
+	</update>
+
+	<delete id="deleteCheckInPeople">
+		delete from
+			check_in_people
+		where
+			id = #{id}
+	</delete>
+</mapper>
