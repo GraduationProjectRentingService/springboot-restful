@@ -373,6 +373,16 @@ public class HouseManagerServiceImpl implements HouseManagerService {
     }
 
     @Override
+    public boolean isHouseIdExist(long id) {
+        return houseDao.findByRoomId(id) != null;
+    }
+
+    @Override
+    public House findHouseById(long id) {
+        return houseDao.findByRoomId(id);
+    }
+
+    @Override
     public ResponseBean getTitle(String str){
         ResponseBean responseBean = new ResponseBean();
         JSONObject json = JSON.parseObject(str);

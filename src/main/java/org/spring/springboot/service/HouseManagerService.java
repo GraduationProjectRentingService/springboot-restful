@@ -41,4 +41,8 @@ public interface HouseManagerService {
     ResponseBean HouseNotPass(String str);
 
     ResponseBean RemoveOneHouse(String str);
+
+    boolean isHouseIdExist(long id);
+
+    House findHouseById(long id);
 }
