@@ -91,9 +91,6 @@
         update
         host
         set
-        <if test="password!=null">
-            password = #{password},
-        </if>
         hostName = #{hostName},
         nickName = #{nickName},
         id_card = #{id_card},

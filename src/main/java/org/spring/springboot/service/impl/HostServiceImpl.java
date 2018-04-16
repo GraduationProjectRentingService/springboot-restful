@@ -202,7 +202,6 @@ public class HostServiceImpl implements HostService {
         JSONObject json = JSON.parseObject(str);
         if ( json.getLong("phoneNumber") != null ) {
             Host host = hostDao.findByPhone(json.getString("phoneNumber"));
-            host.setPassword(json.getString("password"));
             host.setHostName(json.getString("hostName"));
             host.setNickName(json.getString("nickName"));
             host.setId_card(json.getString("id_card"));
