@@ -6,13 +6,20 @@ import java.util.List;
 
 public interface OrderDao {
 
-    long FindMaxOrderId();
 
-    int createAnOrder(Order order);
 
-    List<Order> getAllOrder(Long houseId);
+//    int createAnOrder(Order order);
+//
+//    List<Order> getAllOrder(Long houseId);
+//
+//    List<Order>  getAnOrder(Long orderState, Long hostId);
 
-    List<Order>  getAnOrder(Long orderState, Long hostId);
+    /**
+     * create by sun
+     */
+    int createOrder(Order order);//创建订单
+
+    int findMaxOrderId();
 
     List<Order> getSettlement(String id);
 }

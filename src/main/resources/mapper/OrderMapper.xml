@@ -2,48 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.spring.springboot.dao.OrderDao">
     <resultMap id="BaseResultMap" type="org.spring.springboot.domain.Order">
-        <result column="id" property="id" />
-        <result column="houseId" property="houseId" />
-        <result column="houseTitle" property="houseTitle" />
-        <result column="userId" property="userId" />
-        <result column="hostId" property="hostId" />
-        <result column="startTime" property="startTime" />
-        <result column="endTime" property="endTime" />
-        <result column="dateNum" property="dateNum" />
-        <result column="orderPrice" property="orderPrice" />
-        <result column="orderState" property="orderState" />
-        <result column="payWay" property="payWay" />
-        <result column="createTime" property="createTime" />
+        <result column="id" property="orderId" />
+        <result column="create_time" property="createTime" />
+        <result column="last_change_time" property="lastChangeTime" />
+        <result column="user_phone" property="userPhone" />
+        <result column="user_name" property="userName" />
+        <result column="host_phone" property="hostPhone" />
+        <result column="house_id" property="houseId" />
+        <result column="house_img_url" property="houseImgUrl" />
+        <result column="house_title" property="houseTitle" />
+        <result column="house_rental_type" property="houseRentalType" />
+        <result column="house_location" property="houseLocation" />
+        <result column="check_in_date" property="checkInDate" />
+        <result column="check_out_date" property="checkOutDate" />
+        <result column="day_num" property="dayNum" />
+        <result column="total_house_money" property="totalHouseMoney" />
+        <result column="deposit" property="deposit" />
+        <result column="total_money" property="totalMoney" />
+        <result column="check_in_people_ids" property="checkInPeopleIdList" />
+        <result column="pay_way" property="payWay" />
+        <result column="pay_way_code" property="payWayCode" />
     </resultMap>
 
     <parameterMap id="Order" type="org.spring.springboot.domain.Order"/>
 
     <sql id="Base_Column_List">
-        id,houseId,houseTitle,userId,hostId,startTime,endTime,dateNum,orderPrice,orderState,payWay,createTime
+        orderId,createTime,lastChangeTime,userPhone,userName,hostPhone,houseId,houseImgUrl,houseTitle,houseRentalType,houseLocation,checkInDate,checkOutDate,dayNum,totalHouseMoney,deposit,totalMoney,checkInPeopleIdList,payWay,payWayCode
     </sql>
 
-    <!-- 创建订单 -->
-    <insert id="createAnOrder" parameterMap="Order">
-        INSERT INTO ordertable(id,houseId,houseTitle,userId,hostId,startTime,endTime,dateNum) VALUES (#{id},#{houseId},#{houseTitle},#{userId},#{hostId},#{startTime},#{endTime},#{dateNum})
+    <select id="findMaxOrderId" resultType="java.lang.Integer">
+        select max(id) from order
+    </select>
+
+    <!-- 创建订单-->
+    <insert id="createOrder" parameterMap="Order">
+        insert into order(id,create_time,user_phone,user_name,host_phone,house_id,house_img_url,house_title,house_rental_type,house_location,check_in_date,check_out_date,day_num,total_house_money,deposit,total_money,check_in_people_ids,pay_way,pay_way_code)
+        values (#{orderId},#{createTime},#{userPhone},#{userName},#{hostPhone},#{houseId},#{houseImgUrl},
+        {#houseTitle},#{houseRentalType},#{houseLocation},#{checkInDate},#{checkOutDate},#{dayNum},#{totalHouseMoney},#{deposit},#{totalMoney},#{checkInPeopleIdList},#{payWay},#{payWayCode})
     </insert>
 
-    <select id="FindMaxOrderId" resultType="java.lang.Long">
-    select max(id) from ordertable
-    </select>
-
-    <select id="getAllOrder" resultMap="BaseResultMap" parameterType="java.lang.Long">
-        select
-        <include refid="Base_Column_List" />
-        from ordertable
-        where hostId = #{hostId}
-    </select>
-
-    <select id="getOrder" resultMap="BaseResultMap" parameterType="java.lang.Long">
-        select
-        <include refid="Base_Column_List" />
-        from ordertable
-        where hostId = #{hostId} and orderState = #{orderState}
-    </select>
 
     <select id="getSettlement" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
