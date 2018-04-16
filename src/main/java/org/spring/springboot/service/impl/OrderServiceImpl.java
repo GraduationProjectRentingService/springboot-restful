@@ -5,11 +5,14 @@ import com.alibaba.fastjson.JSONObject;
 import org.spring.springboot.dao.HouseDao;
 import org.spring.springboot.dao.OrderDao;
 import org.spring.springboot.dao.UserDao;
+import org.spring.springboot.domain.Host;
 import org.spring.springboot.domain.Order;
 import org.spring.springboot.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.spring.springboot.domain.ResponseBean;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static org.spring.springboot.domain.ResponseBean.FAIL_CODE;
 import static org.spring.springboot.domain.ResponseBean.SUCCESS_CODE;
@@ -70,4 +73,24 @@ public class OrderServiceImpl implements OrderService{
         }
         return responseBean;
     }
+
+    @Override
+    public ResponseBean getSettlementStatistics(String str){
+        ResponseBean responseBean = new ResponseBean();
+        JSONObject json = JSON.parseObject(str);
+        if( json.getString("hostId") != null){
+            List<Order> orders = orderDao.getSettlement(json.getString("hostId"));
+            //怎么累加???
+            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setMessage("获取收入情况成功");
+            responseBean.setContent("");
+        }
+        else {
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("获取收入情况失败");
+            responseBean.setContent("");
+        }
+        return responseBean;
+    }
+
 }

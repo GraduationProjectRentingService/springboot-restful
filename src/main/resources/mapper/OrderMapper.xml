@@ -45,4 +45,11 @@
         where hostId = #{hostId} and orderState = #{orderState}
     </select>
 
+    <select id="getSettlement" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from ordertable
+        where hostId = #{hostId} and orderState = 3
+    </select>
+
 </mapper>

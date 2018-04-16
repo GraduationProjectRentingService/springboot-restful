@@ -14,4 +14,5 @@ public interface OrderDao {
 
     List<Order>  getAnOrder(Long orderState, Long hostId);
 
+    List<Order> getSettlement(String id);
 }

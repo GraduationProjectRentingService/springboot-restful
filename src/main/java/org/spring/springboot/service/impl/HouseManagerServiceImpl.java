@@ -117,12 +117,11 @@ public class HouseManagerServiceImpl implements HouseManagerService {
     public ResponseBean saveRuleRequirement(String str) {
         ResponseBean responseBean = new ResponseBean();
         JSONObject json = JSON.parseObject(str);
-        JSONArray array_breakContact = json.getJSONArray("breakContact");
 
         if (houseDao.findByRoomId(json.getLong("roomId")) != null) {
             House house = houseDao.findByRoomId(json.getLong("roomId"));
             house.setTradingRules(json.getString("tradingRules"));
-            house.setBreakContact(array_breakContact.toString());
+            house.setBreakContact(json.getString("breakContact"));
             house.setLeastDay(json.getLong("leastDay"));
             house.setMostDay(json.getLong("mostDay"));
             house.setReceiveOutside(json.getLong("receiveOutside"));

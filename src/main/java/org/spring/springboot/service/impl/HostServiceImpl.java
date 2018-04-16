@@ -184,7 +184,7 @@ public class HostServiceImpl implements HostService {
     public ResponseBean getImformation(String str){
         ResponseBean responseBean = new ResponseBean();
         JSONObject json = JSON.parseObject(str);
-        if ( json.getLong("haveWriten") == 1 ) {
+        if ( json.getLong("haveWriten") == 1 && hostDao.findByPhone(json.getString("phoneNumber")) != null ) {
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("获取房东已填写信息成功");
             responseBean.setContent(hostDao.findHostImformation(json.getString("phoneNumber")));

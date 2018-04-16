@@ -9,4 +9,6 @@ public interface OrderService {
     ResponseBean createOneOrder(String str);
 
     ResponseBean getOrder(String str);
+
+    ResponseBean getSettlementStatistics(String params);
 }
