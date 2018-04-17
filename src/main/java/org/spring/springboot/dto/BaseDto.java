@@ -1,10 +1,6 @@
 package org.spring.springboot.dto;
 
-import org.spring.springboot.domain.Order;
-
-import java.util.List;
-
-public class OrderDto extends Order implements IBaseDto{
+public class BaseDto implements IBaseDto{
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -23,5 +19,4 @@ public class OrderDto extends Order implements IBaseDto{
 
     private String phoneNumber;//用户账号
     private String token;//用户登录token
-
 }

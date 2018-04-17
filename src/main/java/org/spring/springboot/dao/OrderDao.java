@@ -21,9 +21,9 @@ public interface OrderDao {
     int createOrder(Order order);//创建订单
 
     List<Order> findAllOrderListByUserPhone(@Param("userPhone") String userPhone);//通过用户手机号码查询所有订单列表
-    List<Order> findOrderListByUserPhone(@Param("userPhone") String userPhone, @Param("type") int type);//通过用户手机号码和订单类型查询订单列表
-    List<Order> findAllOrderListByHostPhone(String hostPhone);//通过房东查询所有订单列表
-    List<Order> findOrderListByHostPhone(String hostPhone, int type);//通过房东号码和订单类型查询订单列表
+    List<Order> findOrderListByUserPhone(@Param("userPhone") String userPhone, @Param("status") int status);//通过用户手机号码和订单类型查询订单列表
+    List<Order> findAllOrderListByHostPhone(@Param("hostPhone") String hostPhone);//通过房东查询所有订单列表
+    List<Order> findOrderListByHostPhone(@Param("hostPhone") String hostPhone, @Param("status") int status);//通过房东号码和订单类型查询订单列表
 
     int findMaxOrderId();//查询id最大的值
 

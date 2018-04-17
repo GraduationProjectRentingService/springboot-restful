@@ -14,4 +14,8 @@ public interface OrderService {
 
     ResponseBean createOrder(OrderDto order);
 
+    ResponseBean updateOrder(OrderDto orderDto);
+
+    ResponseBean getAllOrdersByUserPhone(String userPhone);//通过用户账号获取所有订单列表
+
 }

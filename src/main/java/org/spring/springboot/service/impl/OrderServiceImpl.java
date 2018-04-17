@@ -2,6 +2,7 @@ package org.spring.springboot.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.sun.tools.corba.se.idl.constExpr.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spring.springboot.dao.CheckInPeopleDao;
@@ -64,6 +65,34 @@ public class OrderServiceImpl implements OrderService{
         JSONObject content = new JSONObject();
         content.put("order", order);
         return new ResponseBean(SUCCESS_CODE, "创建订单成功！", content);
+    }
+
+    @Override
+    public ResponseBean updateOrder(OrderDto orderDto) {
+        return null;
+    }
+
+    @Override
+    public ResponseBean getAllOrdersByUserPhone(String userPhone) {
+        List<Order> orders = orderDao.findAllOrderListByUserPhone(userPhone);
+        if (orders == null && orders.size() == 0){
+            return new ResponseBean(FAIL_CODE, "该用户的订单列表为空！", "");
+        }
+
+        List<Order> resultOrders = new ArrayList<>();
+        for (Order order: orders){
+            String ids[] = order.getCheckInPeopleIdList().split(",");
+            List<CheckInPeople> checkInPeopleList = new ArrayList<>();
+            for (String id: ids){
+                checkInPeopleList.add(checkInPeopleDao.findById(Integer.parseInt(id)));
+            }
+            order.setCheckInPeopleUserInfoList(checkInPeopleList);
+            resultOrders.add(order);
+        }
+        JSONObject content = new JSONObject();
+        content.put("list", resultOrders);
+        logger.info(content.toString());
+        return new ResponseBean(SUCCESS_CODE, "获取成功！", content);
     }
 
     /**
