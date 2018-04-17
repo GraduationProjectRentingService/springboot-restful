@@ -30,23 +30,15 @@
         orderId,createTime,lastChangeTime,userPhone,userName,hostPhone,houseId,houseImgUrl,houseTitle,houseRentalType,houseLocation,checkInDate,checkOutDate,dayNum,totalHouseMoney,deposit,totalMoney,checkInPeopleIdList,payWay,payWayCode
     </sql>
 
-    <select id="findMaxOrderId" resultType="java.lang.Integer">
-        select max(id) from order
-    </select>
-
     <!-- 创建订单-->
     <insert id="createOrder" parameterMap="Order">
-        insert into order(id,create_time,user_phone,user_name,host_phone,house_id,house_img_url,house_title,house_rental_type,house_location,check_in_date,check_out_date,day_num,total_house_money,deposit,total_money,check_in_people_ids,pay_way,pay_way_code)
+        insert into order_table(id,create_time,user_phone,user_name,host_phone,house_id,house_img_url,house_title,house_rental_type,house_location,check_in_date,check_out_date,day_num,total_house_money,deposit,total_money,check_in_people_ids,pay_way,pay_way_code)
         values (#{orderId},#{createTime},#{userPhone},#{userName},#{hostPhone},#{houseId},#{houseImgUrl},
-        {#houseTitle},#{houseRentalType},#{houseLocation},#{checkInDate},#{checkOutDate},#{dayNum},#{totalHouseMoney},#{deposit},#{totalMoney},#{checkInPeopleIdList},#{payWay},#{payWayCode})
+        #{houseTitle},#{houseRentalType},#{houseLocation},#{checkInDate},#{checkOutDate},#{dayNum},#{totalHouseMoney},#{deposit},#{totalMoney},#{checkInPeopleIdList},#{payWay},#{payWayCode})
     </insert>
 
-
-    <select id="getSettlement" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select
-        <include refid="Base_Column_List" />
-        from ordertable
-        where hostId = #{hostId} and orderState = 3
+    <select id="findMaxOrderId" resultType="java.lang.Integer">
+        select max(id) from order_table
     </select>
 
 </mapper>

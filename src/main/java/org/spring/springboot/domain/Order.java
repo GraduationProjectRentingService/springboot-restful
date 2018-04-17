@@ -213,4 +213,32 @@ public class Order {
 
     public static final int ALI_PAY_CODE = 1;//支付宝支付
     public static final int WX_PAY_CODE = 2;//微信支付
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", createTime=" + createTime +
+                ", lastChangeTime=" + lastChangeTime +
+                ", userPhone='" + userPhone + '\'' +
+                ", userName='" + userName + '\'' +
+                ", hostPhone='" + hostPhone + '\'' +
+                ", houseId=" + houseId +
+                ", houseImgUrl='" + houseImgUrl + '\'' +
+                ", houseTitle='" + houseTitle + '\'' +
+                ", houseRentalType='" + houseRentalType + '\'' +
+                ", houseLocation='" + houseLocation + '\'' +
+                ", checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate +
+                ", dayNum=" + dayNum +
+                ", totalHouseMoney=" + totalHouseMoney +
+                ", deposit=" + deposit +
+                ", totalMoney=" + totalMoney +
+                ", checkInPeopleUserInfoList=" + checkInPeopleUserInfoList +
+                ", checkInPeopleIdList='" + checkInPeopleIdList + '\'' +
+                ", payWay='" + payWay + '\'' +
+                ", payWayCode=" + payWayCode +
+                ", status=" + status +
+                '}';
+    }
 }

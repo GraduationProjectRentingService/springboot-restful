@@ -50,28 +50,6 @@ public class OrderController {
         MyExceptionAssert.isTrue(userService.isUserTokenLegal(dto.getPhoneNumber(), dto.getToken()), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "Token过期，请重新登录！");
     }
 
-    /**
-     * 检查订单的合法性
-     * @param dto
-     */
-    private void checkOrder(OrderDto dto){
-        House house = houseManagerService.findHouseById(dto.getHouseId());
-        MyExceptionAssert.isTrue(house != null, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房源不存在！");
-//        MyExceptionAssert.isNotBlank(dto.getHouseTitle(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房源标题不能为空！");
-//        MyExceptionAssert.isNotBlank(dto.getHouseImgUrl(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房源缩略图不能为空！");
-//        MyExceptionAssert.isNotBlank(dto.getHouseLocation(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房源位置不能为空！");
-//        MyExceptionAssert.isNotBlank(dto.getHouseRentalType(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房源出租类型不能为空！");
-        MyExceptionAssert.isNotBlank(dto.getUserName(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "用户名不能为空！");
-        MyExceptionAssert.isNotBlank(dto.getUserPhone(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "用户手机号码不能为空！");
-//        MyExceptionAssert.isNotBlank(dto.getHostPhone(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房东手机号码不能为空！");
-        MyExceptionAssert.isTrue(dto.getTotalHouseMoney() > 0, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房源总价格有误！");
-        MyExceptionAssert.isTrue(dto.getTotalMoney() > 0, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "订单总价有误！");
-        MyExceptionAssert.isTrue(dto.getDayNum() > 0, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "入住天数不能小于1！");
-        MyExceptionAssert.isTrue(dto.getCheckInDate() != null, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "入住时间不能为空！");
-        MyExceptionAssert.isTrue(dto.getCheckOutDate() != null, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "离开时间不能为空！");
-        MyExceptionAssert.isNotBlank(dto.getCheckInPeopleIdList(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "入住人不能为空！");
-
-    }
 
     /**
      * create by sun
@@ -79,8 +57,6 @@ public class OrderController {
     @RequestMapping(value = "createOrder", method = RequestMethod.POST)
     public ResponseBean createOrder(@RequestBody OrderDto orderDto){
         checkUser(orderDto);
-        checkOrder(orderDto);
-        orderDto.setStatus(Order.STATUS_UNPAY);
         return orderService.createOrder(orderDto);
     }
 }

@@ -2,6 +2,7 @@ package org.spring.springboot.service;
 
 import org.spring.springboot.domain.Order;
 import org.spring.springboot.domain.ResponseBean;
+import org.spring.springboot.dto.OrderDto;
 
 public interface OrderService {
 
@@ -11,6 +12,6 @@ public interface OrderService {
 //
 //    ResponseBean getOrder(String str);
 
-    ResponseBean createOrder(Order order);
+    ResponseBean createOrder(OrderDto order);
 
 }

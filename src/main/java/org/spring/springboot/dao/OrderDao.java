@@ -21,5 +21,4 @@ public interface OrderDao {
 
     int findMaxOrderId();
 
-    List<Order> getSettlement(String id);
 }

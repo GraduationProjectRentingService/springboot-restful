@@ -4,7 +4,7 @@ import org.spring.springboot.domain.Order;
 
 import java.util.List;
 
-public class OrderDto extends Order {
+public class OrderDto extends Order{
     public String getPhoneNumber() {
         return phoneNumber;
     }

@@ -37,7 +37,6 @@ public class CheckInPeopleController {
     @RequestMapping("update")
     public ResponseBean update(@RequestBody CheckInPeopleDto checkInPeopleDto){
         checkUser(checkInPeopleDto);
-        MyExceptionAssert.isTrue(checkInPeopleDto.getId() > 0, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房源id有误！");
         return checkInPeopleService.updateCheckInPeople(checkInPeopleDto);
     }
 
