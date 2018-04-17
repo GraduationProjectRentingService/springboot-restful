@@ -28,6 +28,7 @@ public class Order {
     private String checkInPeopleIdList;//入住人id 列表，用String拼接保存到数据库
     private String payWay;
     private int payWayCode;
+    private int status;//订单状态
 
     public String getCheckInPeopleIdList() {
         return checkInPeopleIdList;
@@ -204,8 +205,6 @@ public class Order {
     public void setStatus(int status) {
         this.status = status;
     }
-
-    private int status;//订单状态
 
     public static final int STATUS_FINISH = 1;//订单完成，及完成支付
     public static final int STATUS_UNPAY = 2;//订单未支付

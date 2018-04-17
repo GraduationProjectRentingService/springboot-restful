@@ -41,4 +41,18 @@
         select max(id) from order_table
     </select>
 
+    <select id="findAllOrderListByUserPhone" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from order_table
+        where user_phone = #{userPhone}
+    </select>
+
+    <select id="findOrderListByUserPhone" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from order_table
+        where user_phone = #{userPhone} and
+    </select>
+
 </mapper>
