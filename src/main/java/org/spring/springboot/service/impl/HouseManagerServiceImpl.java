@@ -127,6 +127,7 @@ public class HouseManagerServiceImpl implements HouseManagerService {
             house.setReceiveOutside(json.getLong("receiveOutside"));
             house.setOtherRequirement(json.getString("otherRequirement"));
             house.setTip("tip");
+            house.setHaveReviewed(0);
             houseDao.updateRuleRequirement(house);
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("添加成功");
@@ -339,6 +340,7 @@ public class HouseManagerServiceImpl implements HouseManagerService {
         if ( houseDao.findByRoomId(json.getLong("roomId")) != null && json.getString("approveMessage") != null ){
             House house = houseDao.findByRoomId(json.getLong("roomId"));
             house.setApproveMessage(json.getString("approveMessage"));
+            house.setHaveReviewed(-1);
             houseDao.updateApproveMessage(house);
             responseBean.setCode(SUCCESS_CODE);
             responseBean.setMessage("完成设置审核不通过房源");
@@ -352,7 +354,6 @@ public class HouseManagerServiceImpl implements HouseManagerService {
         return responseBean;
     }
 
-    //???未知错误
     @Override
     public ResponseBean RemoveOneHouse(String str){
         ResponseBean responseBean = new ResponseBean();
@@ -388,6 +389,40 @@ public class HouseManagerServiceImpl implements HouseManagerService {
         responseBean.setCode(SUCCESS_CODE);
         responseBean.setMessage("查询成功");
         responseBean.setContent(houseDao.getHouseTitle(json.getLong("id")));
+        return responseBean;
+    }
+
+    @Override
+    public ResponseBean continueupdateInformation(String str){
+        ResponseBean responseBean = new ResponseBean();
+        JSONObject json = JSON.parseObject(str);
+        if(json.getLong("id")!=null){
+            Long type = houseDao.getType(json.getLong("id"));
+            if(houseDao.getHaveReviewed(json.getLong("id"))<=0) {
+                if (type <= 1)
+                    responseBean.setContent(houseDao.getFirstPageInfor(json.getLong("id")));
+                if (type == 2)
+                    responseBean.setContent(houseDao.getSecondPageInfor(json.getLong("id")));
+                if (type == 3)
+                    responseBean.setContent(houseDao.getThirdPageInfor(json.getLong("id")));
+                if (type == 4)
+                    responseBean.setContent(houseDao.getForthPageInfor(json.getLong("id")));
+                if (type == 5)
+                    responseBean.setContent(houseDao.getFifthPageInfor(json.getLong("id")));
+                responseBean.setCode(SUCCESS_CODE);
+                responseBean.setMessage("获取修改发布房源信息成功");
+            }
+            else if(houseDao.getHaveReviewed(json.getLong("id"))==1) {
+                responseBean.setContent(houseDao.getFifthPageInfor(json.getLong("id")));
+                responseBean.setCode(SUCCESS_CODE);
+                responseBean.setMessage("获取已发布房源信息成功");
+            }
+        }
+        else {
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("房源不存在，获取需要修改发布的房源信息失败");
+            responseBean.setContent("");
+        }
         return responseBean;
     }
 

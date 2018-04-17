@@ -49,4 +49,18 @@ public interface HouseDao {
     int updateApproveMessage(House approveMessage);
 
     int RemoveHouse(Long house);
+
+    Long getType(Long id);
+
+    House getFirstPageInfor(Long id);
+
+    House getSecondPageInfor(Long id);
+
+    House getThirdPageInfor(Long id);
+
+    House getForthPageInfor(Long id);
+
+    House getFifthPageInfor(Long id);
+
+    long getHaveReviewed(Long id);
 }

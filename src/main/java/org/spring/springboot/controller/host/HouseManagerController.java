@@ -154,4 +154,11 @@ public class HouseManagerController {
         return houseManagerService.RemoveOneHouse(params);
     }
 
+    //发布管理·继续发布and查看详情
+    @CrossOrigin
+    @RequestMapping(value = "updateHouseInformation", method = RequestMethod.POST)
+    public  ResponseBean updateHouseInformation(@RequestBody String params){
+        return houseManagerService.continueupdateInformation(params);
+    }
+
 }

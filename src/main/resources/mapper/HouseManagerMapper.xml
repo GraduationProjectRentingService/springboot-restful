@@ -131,7 +131,8 @@
         mostDay = #{mostDay},
         receiveOutside = #{receiveOutside},
         otherRequirement = #{otherRequirement},
-        tip = #{tip}
+        tip = #{tip},
+        haveReviewed = 0
         where
         id = #{id}
     </update>
@@ -162,7 +163,8 @@
         update
         house
         set
-        approveMessage = #{approveMessage}
+        approveMessage = #{approveMessage},
+        haveReviewed = -1
         where
         id = #{id}
     </update>
@@ -234,11 +236,69 @@
         where haveReviewed = #{haveReviewed}
     </select>
 
+    <select id="getHaveReviewed" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select
+        haveReviewed
+        from house
+        where id = #{id}
+    </select>
+
+    <select id="getType" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select
+        type
+        from house
+        where id = #{id}
+    </select>
+
     <delete id="RemoveHouse" parameterMap="House">
         delete from
         house
         where
         id = #{roomId}
     </delete>
+
+    <select id="getFirstPageInfor" parameterType="java.lang.Long" resultType="House">
+        select
+        address,rentalType,rentalTypeText,peopleNum,roomNum,hallNum,bathroomNum,kitchenNum,
+        balconyNum,roomArea,liveWithOwner,bed,replaceBedSheet,bathroomType
+        from house
+        where id = #{id}
+    </select>
+
+    <select id="getSecondPageInfor" parameterType="java.lang.Long" resultType="House">
+        select
+        address,rentalType,rentalTypeText,peopleNum,roomNum,hallNum,bathroomNum,kitchenNum,
+        balconyNum,roomArea,liveWithOwner,bed,replaceBedSheet,bathroomType,
+        bathroom,electricAppliances,claim,surroundCondition
+        from house
+        where id = #{id}
+    </select>
+
+    <select id="getThirdPageInfor" parameterType="java.lang.Long" resultType="House">
+        select
+        address,rentalType,rentalTypeText,peopleNum,roomNum,hallNum,bathroomNum,kitchenNum,
+        balconyNum,roomArea,liveWithOwner,bed,replaceBedSheet,bathroomType,
+        bathroom,electricAppliances,claim,surroundCondition,
+        title,description,houseInfo,surroundCondition
+        from house
+        where id = #{id}
+    </select>
+
+    <select id="getForthPageInfor" parameterType="java.lang.Long" resultType="House">
+        select
+        address,rentalType,rentalTypeText,peopleNum,roomNum,hallNum,bathroomNum,kitchenNum,
+        balconyNum,roomArea,liveWithOwner,bed,replaceBedSheet,bathroomType,
+        bathroom,electricAppliances,claim,surroundCondition,
+        title,description,houseInfo,surroundCondition,picAll
+        from house
+        where id = #{id}
+    </select>
+
+    <select id="getFifthPageInfor"  resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from house
+        where id = #{id}
+    </select>
 
 </mapper>

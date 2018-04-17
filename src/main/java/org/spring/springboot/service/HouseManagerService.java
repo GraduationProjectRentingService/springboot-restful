@@ -45,4 +45,6 @@ public interface HouseManagerService {
     boolean isHouseIdExist(long id);
 
     House findHouseById(long id);
+
+    ResponseBean continueupdateInformation(String params);
 }
