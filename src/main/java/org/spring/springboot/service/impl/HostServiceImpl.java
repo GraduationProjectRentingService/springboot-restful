@@ -3,8 +3,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.spring.springboot.dao.HostDao;
 import org.spring.springboot.dao.HouseDao;
+import org.spring.springboot.dao.MessageDao;
 import org.spring.springboot.domain.Host;
 import org.spring.springboot.domain.House;
+import org.spring.springboot.domain.Message;
 import org.spring.springboot.domain.ResponseBean;
 import org.spring.springboot.domain.User;
 import org.spring.springboot.service.HostService;
@@ -31,6 +33,9 @@ public class HostServiceImpl implements HostService {
 
     @Autowired
     private HouseDao houseDao;
+
+    @Autowired
+    private MessageDao messageDao;
 
     @Override
     public List<User> findAllUser() {
@@ -223,4 +228,23 @@ public class HostServiceImpl implements HostService {
         return responseBean;
     }
 
+    @Override
+    public ResponseBean createInfor(String str){
+        ResponseBean responseBean = new ResponseBean();
+        JSONObject json = JSON.parseObject(str);
+        if ( json.getString("managementId").equals("Admin") && json.getString("password").equals("123456") ) {
+            Message message = new Message();
+            message.setMessageTitle(json.getString("messageTitle"));
+            message.setMessageContent(json.getString("messageContent"));
+            messageDao.saveMessage(message);
+            responseBean.setCode(SUCCESS_CODE);
+            responseBean.setMessage("管理员发布消息成功");
+            responseBean.setContent("");
+        } else {
+            responseBean.setCode(FAIL_CODE);
+            responseBean.setMessage("管理员发布消息失败");
+            responseBean.setContent("");
+        }
+        return responseBean;
+    }
 }

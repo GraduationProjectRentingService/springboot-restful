@@ -66,4 +66,5 @@ public interface UserService {
 
     ResponseBean getAllUserList(String params);
 
+    ResponseBean getAllInfo(User user);
 }

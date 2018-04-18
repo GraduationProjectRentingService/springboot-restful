@@ -76,4 +76,11 @@ public class HostUserController {
         return hostService.saveInformation(params);
     }
 
+    //
+    @CrossOrigin
+    @RequestMapping(value = "/message/create", method = RequestMethod.POST)
+    public ResponseBean createInformation(@RequestBody String params) {
+        return hostService.createInfor(params);
+    }
+
 }

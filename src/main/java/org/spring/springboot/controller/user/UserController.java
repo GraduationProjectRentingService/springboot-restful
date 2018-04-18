@@ -55,4 +55,13 @@ public class UserController {
         return userService.getAllUserList(params);
     }
 
+
+    @RequestMapping(value = "/message/getAll", method = RequestMethod.POST)
+    public ResponseBean getAll(@RequestBody User user){
+        MyExceptionAssert.isNotBlank(user.getPhoneNumber(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "该账号不能为空！");
+        MyExceptionAssert.isNotBlank(user.getToken(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "token不能为空！");
+        MyExceptionAssert.isTrue(userService.isUserTokenLegal(user.getPhoneNumber(), user.getToken()), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "Token过期，请重新登录！");
+        return userService.getAllInfo(user);
+    }
+
 }

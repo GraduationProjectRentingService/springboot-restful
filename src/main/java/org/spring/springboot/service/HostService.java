@@ -72,4 +72,6 @@ public interface HostService {
     ResponseBean getImformation(String params);
 
     ResponseBean saveInformation(String params);
+
+    ResponseBean createInfor(String params);
 }

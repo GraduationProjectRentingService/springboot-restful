@@ -70,7 +70,6 @@
         where id = #{id}
     </select>
 
-
     <select id="getHouseTitle" parameterType="java.lang.Long" resultType="java.lang.String">
         select title
         from house

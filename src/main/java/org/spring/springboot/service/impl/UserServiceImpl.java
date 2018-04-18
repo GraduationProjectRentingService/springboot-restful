@@ -2,7 +2,9 @@ package org.spring.springboot.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.spring.springboot.dao.MessageDao;
 import org.spring.springboot.dao.UserDao;
+import org.spring.springboot.domain.Message;
 import org.spring.springboot.domain.User;
 import org.spring.springboot.domain.ResponseBean;
 import org.spring.springboot.service.UserService;
@@ -20,7 +22,8 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserDao userDao;
-
+    @Autowired
+    private MessageDao messageDao;
 
     @Override
     public List<User> findAllUser() {
@@ -126,6 +129,13 @@ public class UserServiceImpl implements UserService{
             responseBean.setContent("");
         }
         return responseBean;
+    }
+
+    @Override
+    public ResponseBean getAllInfo(User user){
+        JSONObject content = new JSONObject();
+        content.put("list", messageDao.getAll());
+        return new ResponseBean(ResponseBean.SUCCESS_CODE, "获取成功！", content);
     }
 
 }
