@@ -55,9 +55,6 @@ public class LikeHouseServiceImpl implements LikeHouseService {
     @Override
     public ResponseBean getAllHouses(String phone) {
         List<LikeHouseBean> likeHouseBeans = likeHouseDao.findAllByPhone(phone);
-        if (likeHouseBeans == null || likeHouseBeans.size() == 0){
-            return new ResponseBean(ResponseBean.FAIL_CODE, "收藏列表为空！", "");
-        }
 
         List<House> list = new ArrayList<>();
         for (LikeHouseBean bean: likeHouseBeans){

@@ -4,6 +4,7 @@ import org.spring.springboot.domain.ResponseBean;
 import org.spring.springboot.dto.BaseDto;
 import org.spring.springboot.dto.IBaseDto;
 import org.spring.springboot.dto.LikeHouseDto;
+import org.spring.springboot.exception.MyException;
 import org.spring.springboot.exception.MyExceptionAssert;
 import org.spring.springboot.exception.MyExceptionCode;
 import org.spring.springboot.service.LikeHouseService;
@@ -36,24 +37,36 @@ public class LikeHouseController {
     @RequestMapping(value = "addHouse", method = RequestMethod.POST)
     public ResponseBean addHouse(@RequestBody LikeHouseDto dto){
         checkUser(dto);
+        if (!userService.isUserTokenLegal(dto.getPhoneNumber(), dto.getToken())){
+            return new ResponseBean(ResponseBean.TOKEN_ILLEGAL_CODE, "token过期，请重新登录！", "");
+        }
         return likeHouseService.addHouseToLikes(dto.getPhoneNumber(), dto.getHouseId());
     }
 
     @RequestMapping(value = "deleteHouse", method = RequestMethod.POST)
     public ResponseBean deleteHouse(@RequestBody LikeHouseDto dto){
         checkUser(dto);
+        if (!userService.isUserTokenLegal(dto.getPhoneNumber(), dto.getToken())){
+            return new ResponseBean(ResponseBean.TOKEN_ILLEGAL_CODE, "token过期，请重新登录！", "");
+        }
         return likeHouseService.removeHouseFromLikes(dto.getPhoneNumber(), dto.getHouseId());
     }
 
     @RequestMapping(value = "houseHasLiked", method = RequestMethod.POST)
     public ResponseBean houseHasLiked(@RequestBody LikeHouseDto dto){
         checkUser(dto);
+        if (!userService.isUserTokenLegal(dto.getPhoneNumber(), dto.getToken())){
+            return new ResponseBean(ResponseBean.TOKEN_ILLEGAL_CODE, "token过期，请重新登录！", "");
+        }
         return likeHouseService.houseHasLiked(dto.getPhoneNumber(), dto.getHouseId());
     }
 
     @RequestMapping(value = "getAll", method = RequestMethod.POST)
     public ResponseBean getAll(@RequestBody BaseDto dto){
         checkUser(dto);
+        if (!userService.isUserTokenLegal(dto.getPhoneNumber(), dto.getToken())){
+            return new ResponseBean(ResponseBean.TOKEN_ILLEGAL_CODE, "token过期，请重新登录！", "");
+        }
         return likeHouseService.getAllHouses(dto.getPhoneNumber());
     }
 }

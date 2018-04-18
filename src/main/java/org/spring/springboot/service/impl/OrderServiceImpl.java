@@ -99,13 +99,7 @@ public class OrderServiceImpl implements OrderService{
         return new ResponseBean(SUCCESS_CODE, "更新订单成功！", content);
     }
 
-    @Override
-    public ResponseBean getAllOrdersByUserPhone(String userPhone) {
-        List<Order> orders = orderDao.findAllOrderListByUserPhone(userPhone);
-        if (orders == null || orders.size() == 0){
-            return new ResponseBean(FAIL_CODE, "该用户的订单列表为空！", "");
-        }
-
+    private List<Order> addCheckInPeoplesByIds(List<Order> orders){
         List<Order> resultOrders = new ArrayList<>();
         for (Order order: orders){
             String ids[] = order.getCheckInPeopleIdList().split(",");
@@ -116,8 +110,14 @@ public class OrderServiceImpl implements OrderService{
             order.setCheckInPeopleUserInfoList(checkInPeopleList);
             resultOrders.add(order);
         }
+        return resultOrders;
+    }
+
+    @Override
+    public ResponseBean getAllOrdersByUserPhone(String userPhone) {
+        List<Order> orders = orderDao.findAllOrderListByUserPhone(userPhone);
         JSONObject content = new JSONObject();
-        content.put("list", resultOrders);
+        content.put("list", addCheckInPeoplesByIds(orders));
         logger.info(content.toString());
         return new ResponseBean(SUCCESS_CODE, "获取成功！", content);
     }
@@ -128,19 +128,8 @@ public class OrderServiceImpl implements OrderService{
         if (orders == null || orders.size() == 0){
             return new ResponseBean(FAIL_CODE, "该用户的订单列表为空！", "");
         }
-
-        List<Order> resultOrders = new ArrayList<>();
-        for (Order order: orders){
-            String ids[] = order.getCheckInPeopleIdList().split(",");
-            List<CheckInPeople> checkInPeopleList = new ArrayList<>();
-            for (String id: ids){
-                checkInPeopleList.add(checkInPeopleDao.findById(Integer.parseInt(id)));
-            }
-            order.setCheckInPeopleUserInfoList(checkInPeopleList);
-            resultOrders.add(order);
-        }
         JSONObject content = new JSONObject();
-        content.put("list", resultOrders);
+        content.put("list", addCheckInPeoplesByIds(orders));
         logger.info(content.toString());
         return new ResponseBean(SUCCESS_CODE, "获取成功！", content);
     }
@@ -159,19 +148,8 @@ public class OrderServiceImpl implements OrderService{
         if (orders == null || orders.size() == 0){
             return new ResponseBean(FAIL_CODE,  tip + "为空！", "");
         }
-
-        List<Order> resultOrders = new ArrayList<>();
-        for (Order order: orders){
-            String ids[] = order.getCheckInPeopleIdList().split(",");
-            List<CheckInPeople> checkInPeopleList = new ArrayList<>();
-            for (String id: ids){
-                checkInPeopleList.add(checkInPeopleDao.findById(Integer.parseInt(id)));
-            }
-            order.setCheckInPeopleUserInfoList(checkInPeopleList);
-            resultOrders.add(order);
-        }
         JSONObject content = new JSONObject();
-        content.put("list", resultOrders);
+        content.put("list", addCheckInPeoplesByIds(orders));
         logger.info(content.toString());
         return new ResponseBean(SUCCESS_CODE, tip + "获取成功！", content);
     }
