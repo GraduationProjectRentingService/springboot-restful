@@ -2,7 +2,6 @@ package org.spring.springboot.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-//import com.sun.tools.corba.se.idl.constExpr.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spring.springboot.dao.CheckInPeopleDao;
@@ -69,13 +68,41 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public ResponseBean updateOrder(OrderDto orderDto) {
-        return null;
+        Order find  = orderDao.findOrderById(orderDto.getOrderId());
+        if (find == null){
+            return new ResponseBean(FAIL_CODE, "更新订单状态失败！", "");
+        }
+
+        //需要判断要更新的类型
+        switch (orderDto.getStatus()){
+            case Order.STATUS_UNPAY:
+                if (find.getStatus() == Order.STATUS_CANCEL || find.getStatus() == Order.STATUS_FINISH){
+                    return new ResponseBean(FAIL_CODE, "非法状态修改！", "");
+                }
+                break;
+            case Order.STATUS_CANCEL:
+                if (find.getStatus() == Order.STATUS_FINISH){
+                    return new ResponseBean(FAIL_CODE, "非法状态修改！", "");
+                }
+                break;
+            case Order.STATUS_FINISH:
+                //修改支付状态的话，需要修改支付类型,为了返回
+                find.setPayWay(orderDto.getPayWay());
+                find.setPayWayCode(orderDto.getPayWayCode());
+                break;
+        }
+        //修改订单状态
+        find.setStatus(orderDto.getStatus());
+        orderDao.updateOrder(orderDto);
+        JSONObject content = new JSONObject();
+        content.put("order", find);
+        return new ResponseBean(SUCCESS_CODE, "更新订单成功！", content);
     }
 
     @Override
     public ResponseBean getAllOrdersByUserPhone(String userPhone) {
         List<Order> orders = orderDao.findAllOrderListByUserPhone(userPhone);
-        if (orders == null && orders.size() == 0){
+        if (orders == null || orders.size() == 0){
             return new ResponseBean(FAIL_CODE, "该用户的订单列表为空！", "");
         }
 
@@ -93,6 +120,65 @@ public class OrderServiceImpl implements OrderService{
         content.put("list", resultOrders);
         logger.info(content.toString());
         return new ResponseBean(SUCCESS_CODE, "获取成功！", content);
+    }
+
+    @Override
+    public ResponseBean getAllOrdersByHostPhone(String hostPhone) {
+        List<Order> orders = orderDao.findAllOrderListByHostPhone(hostPhone);
+        if (orders == null || orders.size() == 0){
+            return new ResponseBean(FAIL_CODE, "该用户的订单列表为空！", "");
+        }
+
+        List<Order> resultOrders = new ArrayList<>();
+        for (Order order: orders){
+            String ids[] = order.getCheckInPeopleIdList().split(",");
+            List<CheckInPeople> checkInPeopleList = new ArrayList<>();
+            for (String id: ids){
+                checkInPeopleList.add(checkInPeopleDao.findById(Integer.parseInt(id)));
+            }
+            order.setCheckInPeopleUserInfoList(checkInPeopleList);
+            resultOrders.add(order);
+        }
+        JSONObject content = new JSONObject();
+        content.put("list", resultOrders);
+        logger.info(content.toString());
+        return new ResponseBean(SUCCESS_CODE, "获取成功！", content);
+    }
+
+    @Override
+    public ResponseBean getOrdersByHostPhoneAndStatus(String hostPhone, int status) {
+        List<Order> orders = orderDao.findOrderListByHostPhone(hostPhone, status);
+        String tip = "";
+        if (status == Order.STATUS_UNPAY){
+            tip = "未支付订单列表";
+        }else if (status == Order.STATUS_CANCEL){
+            tip = "取消订单列表";
+        }else if (status == Order.STATUS_FINISH){
+            tip = "已完成订单列表";
+        }
+        if (orders == null || orders.size() == 0){
+            return new ResponseBean(FAIL_CODE,  tip + "为空！", "");
+        }
+
+        List<Order> resultOrders = new ArrayList<>();
+        for (Order order: orders){
+            String ids[] = order.getCheckInPeopleIdList().split(",");
+            List<CheckInPeople> checkInPeopleList = new ArrayList<>();
+            for (String id: ids){
+                checkInPeopleList.add(checkInPeopleDao.findById(Integer.parseInt(id)));
+            }
+            order.setCheckInPeopleUserInfoList(checkInPeopleList);
+            resultOrders.add(order);
+        }
+        JSONObject content = new JSONObject();
+        content.put("list", resultOrders);
+        logger.info(content.toString());
+        return new ResponseBean(SUCCESS_CODE, tip + "获取成功！", content);
+    }
+
+    @Override
+    public ResponseBean getTotalFinishOrderMoney(String phone) {
+        return new ResponseBean(SUCCESS_CODE, "获取成功！", orderDao.getTotalFinishOrderMoney(phone));
     }
 
     /**
@@ -130,7 +216,7 @@ public class OrderServiceImpl implements OrderService{
 //        MyExceptionAssert.isNotBlank(dto.getUserPhone(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "用户手机号码不能为空！");
 //        MyExceptionAssert.isNotBlank(dto.getHostPhone(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房东手机号码不能为空！");
 //        MyExceptionAssert.isTrue(dto.getTotalHouseMoney() > 0, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "房源总价格有误！");
-//        MyExceptionAssert.isTrue(dto.getTotalMoney() > 0, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "订单总价有误！");
+//        MyExceptionAssert.isTrue(dto.getTotalOrderMoney() > 0, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "订单总价有误！");
 //        MyExceptionAssert.isTrue(dto.getDayNum() > 0, MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "入住天数不能小于1！");
 
 

@@ -233,7 +233,7 @@ public class Order {
                 ", dayNum=" + dayNum +
                 ", totalHouseMoney=" + totalHouseMoney +
                 ", deposit=" + deposit +
-                ", totalMoney=" + totalMoney +
+                ", totalOrderMoney=" + totalMoney +
                 ", checkInPeopleUserInfoList=" + checkInPeopleUserInfoList +
                 ", checkInPeopleIdList='" + checkInPeopleIdList + '\'' +
                 ", payWay='" + payWay + '\'' +

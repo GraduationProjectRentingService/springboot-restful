@@ -42,6 +42,26 @@
         select max(id) from order_table
     </select>
 
+    <update id="updateOrder" parameterMap="Order">
+        update
+        order_table
+        set status = #{status},
+        <if test="payWay!=null">
+            pay_way = #{payWay},
+        </if>
+        <if test="payWayCode!=null">
+            pay_way_code = #{payWayCode}
+        </if>
+        where id = #{orderId}
+    </update>
+
+    <select id="findOrderById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from order_table
+        where id = #{id}
+    </select>
+
     <select id="findAllOrderListByUserPhone" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
@@ -54,6 +74,35 @@
         <include refid="Base_Column_List" />
         from order_table
         where user_phone = #{userPhone} and status = #{status}
+    </select>
+
+    <select id="findAllOrderListByHostPhone" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from order_table
+        where host_phone = #{hostPhone}
+    </select>
+
+    <select id="findOrderListByHostPhone" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from order_table
+        where host_phone = #{hostPhone} and status = #{status}
+    </select>
+
+    <resultMap id="TotalFinishOrderInfo" type="org.spring.springboot.domain.TotalOrderInfo">
+        <result column="sum(total_house_money)" property="totalOrderMoney"/>
+        <result column="count(*)" property="orderCount"/>
+    </resultMap>
+
+    <sql id="Total_Finish_Order_Info_Column_List">
+        sum(total_house_money),count(*)
+    </sql>
+    <select id="getTotalFinishOrderMoney" resultMap="TotalFinishOrderInfo">
+        select
+        <include refid="Total_Finish_Order_Info_Column_List"/>
+        from order_table
+        where host_phone = #{hostPhone} and status = 1
     </select>
 
 </mapper>

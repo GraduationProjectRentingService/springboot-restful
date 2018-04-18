@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.spring.springboot.dao.LikeHouseDao">
+	<resultMap id="BaseResultMap" type="org.spring.springboot.domain.LikeHouseBean">
+		<result column="id" property="id" />
+		<result column="userPhone" property="userPhone" />
+		<result column="houseId" property="houseId" />
+	</resultMap>
+
+	<parameterMap id="LikeHouseBean" type="org.spring.springboot.domain.LikeHouseBean"/>
+
+	<sql id="Base_Column_List">
+		id,userPhone,houseId
+	</sql>
+
+	<select id="find" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_like_house_table
+		where userPhone = #{userPhone} and houseId = #{houseId}
+	</select>
+
+	<select id="findAllByPhone" parameterMap="LikeHouseBean" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from user_like_house_table
+		where userPhone = #{userPhone}
+	</select>
+
+	<insert id="add" parameterMap="LikeHouseBean" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		user_like_house_table(userPhone,houseId)
+		values
+			(#{userPhone},#{houseId})
+	</insert>
+
+	<delete id="remove" parameterMap="LikeHouseBean">
+		delete from
+		user_like_house_table
+		where
+			userPhone = #{userPhone} and houseId = #{houseId}
+	</delete>
+</mapper>

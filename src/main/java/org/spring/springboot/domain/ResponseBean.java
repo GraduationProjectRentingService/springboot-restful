@@ -7,6 +7,7 @@ public class ResponseBean {
 
     public static final int SUCCESS_CODE = 1;
     public static final int FAIL_CODE = 0;
+    public static final int TOKEN_ILLEGAL_CODE = 11;//token过期
 
     private int code;
     private String message;
