@@ -36,7 +36,11 @@ public class UserController {
     public ResponseBean updateUserInfo(@RequestBody User user){
         MyExceptionAssert.isNotBlank(user.getPhoneNumber(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "该账号不能为空！");
         MyExceptionAssert.isNotBlank(user.getToken(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "token不能为空！");
-        MyExceptionAssert.isTrue(userService.isUserTokenLegal(user.getPhoneNumber(), user.getToken()), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "Token过期，请重新登录！");
+//        MyExceptionAssert.isTrue(userService.isUserTokenLegal(user.getPhoneNumber(), user.getToken()), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "Token过期，请重新登录！");
+        //判断token是否过期
+        if (!userService.isUserTokenLegal(user.getPhoneNumber(), user.getToken())){
+            return new ResponseBean(ResponseBean.TOKEN_ILLEGAL_CODE, "token 过期，请重新登录！", "");
+        }
         return userService.updateUser(user);
     }
 
@@ -44,7 +48,11 @@ public class UserController {
     public ResponseBean getUserInfo(@RequestBody User user){
         MyExceptionAssert.isNotBlank(user.getPhoneNumber(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "该账号不能为空！");
         MyExceptionAssert.isNotBlank(user.getToken(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "token不能为空！");
-        MyExceptionAssert.isTrue(userService.isUserTokenLegal(user.getPhoneNumber(), user.getToken()), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "Token过期，请重新登录！");
+//        MyExceptionAssert.isTrue(userService.isUserTokenLegal(user.getPhoneNumber(), user.getToken()), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "Token过期，请重新登录！");
+        //判断token是否过期
+        if (!userService.isUserTokenLegal(user.getPhoneNumber(), user.getToken())){
+            return new ResponseBean(ResponseBean.TOKEN_ILLEGAL_CODE, "token 过期，请重新登录！", "");
+        }
         return userService.getUserInfo(user.getPhoneNumber());
     }
 
@@ -60,7 +68,11 @@ public class UserController {
     public ResponseBean getAll(@RequestBody User user){
         MyExceptionAssert.isNotBlank(user.getPhoneNumber(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "该账号不能为空！");
         MyExceptionAssert.isNotBlank(user.getToken(), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "token不能为空！");
-        MyExceptionAssert.isTrue(userService.isUserTokenLegal(user.getPhoneNumber(), user.getToken()), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "Token过期，请重新登录！");
+        //判断token是否过期
+        if (!userService.isUserTokenLegal(user.getPhoneNumber(), user.getToken())){
+            return new ResponseBean(ResponseBean.TOKEN_ILLEGAL_CODE, "token 过期，请重新登录！", "");
+        }
+//        MyExceptionAssert.isTrue(userService.isUserTokenLegal(user.getPhoneNumber(), user.getToken()), MyExceptionCode.PARAM_REQUIRED_EXCEPTION, "Token过期，请重新登录！");
         return userService.getAllInfo(user);
     }
 
