@@ -6,6 +6,16 @@ public class CheckInPeople {
     private String name;
     private String phone;
 
+    public int isUse() {
+        return isUse;
+    }
+
+    public void setUse(int use) {
+        isUse = use;
+    }
+
+    private int isUse;
+
     public int getId() {
         return id;
     }

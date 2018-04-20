@@ -6,12 +6,13 @@
 		<result column="name" property="name" />
 		<result column="id_card" property="idCard" />
 		<result column="belong_user_id" property="belongUserId" />
+		<result column="is_use" property="isUse"/>
 	</resultMap>
 
 	<parameterMap id="CheckInPeople" type="org.spring.springboot.domain.CheckInPeople"/>
 
 	<sql id="Base_Column_List">
-		id, id_card, name, phone, belong_user_id
+		id, id_card, name, phone, belong_user_id, is_use
 	</sql>
 
 	<select id="findById" resultMap="BaseResultMap">
@@ -53,8 +54,9 @@
 			id_card = #{idCard},
 		</if>
 		<if test="phone!=null">
-			phone = #{phone}
+			phone = #{phone},
 		</if>
+		    is_use = #{isUse}
 		where
 			id = #{id}
 	</update>

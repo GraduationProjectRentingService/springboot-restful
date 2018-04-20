@@ -67,6 +67,7 @@
         <include refid="Base_Column_List" />
         from order_table
         where user_phone = #{userPhone}
+        ORDER BY create_time DESC
     </select>
 
     <select id="findOrderListByUserPhone" resultMap="BaseResultMap">

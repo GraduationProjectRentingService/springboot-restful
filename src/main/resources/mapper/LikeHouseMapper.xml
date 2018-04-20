@@ -10,7 +10,7 @@
 	<parameterMap id="LikeHouseBean" type="org.spring.springboot.domain.LikeHouseBean"/>
 
 	<sql id="Base_Column_List">
-		id,userPhone,houseId
+		id,userPhone,houseId,create_time
 	</sql>
 
 	<select id="find" resultMap="BaseResultMap">
@@ -25,6 +25,7 @@
 		<include refid="Base_Column_List"/>
 		from user_like_house_table
 		where userPhone = #{userPhone}
+		ORDER BY create_time DESC
 	</select>
 
 	<insert id="add" parameterMap="LikeHouseBean" useGeneratedKeys="true" keyProperty="id">

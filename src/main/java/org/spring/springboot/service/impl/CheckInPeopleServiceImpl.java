@@ -57,6 +57,9 @@ public class CheckInPeopleServiceImpl implements CheckInPeopleService {
         if (find == null){
             return new ResponseBean(ResponseBean.FAIL_CODE, "删除失败！不存在该入住人信息！","");
         }
+        if (find.isUse() == 1){
+            return new ResponseBean(ResponseBean.FAIL_CODE, "删除失败！该入住人信息在使用中！", "");
+        }
         checkInPeopleDao.deleteCheckInPeople(id);
 
         return new ResponseBean(ResponseBean.SUCCESS_CODE, "删除成功！", "");
